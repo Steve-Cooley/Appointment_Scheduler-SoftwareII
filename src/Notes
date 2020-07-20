@@ -1,0 +1,7 @@
+Process for creating new scenes:
+  1. In IDE, create new javafx file
+  2. The ide will then highlight a controller variable and ask if it should make the controller
+  3. rename/refactor the controller name (it will probably not say "Controller"
+  4. Open the fxml file in scenebuilder and profit!
+
+In order to control size of scene in scenebuilder, do *not* specify the size in the controller file.
