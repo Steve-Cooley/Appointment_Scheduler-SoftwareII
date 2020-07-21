@@ -5,3 +5,12 @@ Process for creating new scenes:
   4. Open the fxml file in scenebuilder and profit!
 
 In order to control size of scene in scenebuilder, do *not* specify the size in the controller file.
+
+To move Main:
+- Don't move Main!
+- Commit to version control
+- change the name of the package main is in
+- make a new package
+- move those other files to the new package
+- if there is a problem, revert to that previous commit.  Try again.
+Moving main doesn't seem to work, so that is my workaround.

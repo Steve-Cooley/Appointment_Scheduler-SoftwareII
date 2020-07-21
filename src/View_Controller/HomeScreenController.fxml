@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="914.0" prefWidth="1478.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewControllers.HomeScreenController">
+<AnchorPane prefHeight="914.0" prefWidth="1478.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.HomeScreenController">
    <children>
       <Label layoutX="133.0" layoutY="66.0" text="Home Screen" />
       <Button fx:id="BtnExit" layoutX="1361.0" layoutY="848.0" mnemonicParsing="false" text="Exit" />

@@ -1,4 +1,4 @@
-package ViewControllers;
+package View_Controller;
 
 public class ModifyUserController {
 }
