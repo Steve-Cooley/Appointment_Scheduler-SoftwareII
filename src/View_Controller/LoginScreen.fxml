@@ -18,6 +18,6 @@
          </children>
       </AnchorPane>
       <Button fx:id="BtnExit" layoutX="464.0" layoutY="336.0" mnemonicParsing="false" text="Exit" />
-      <Button fx:id="BtnCheater" layoutX="479.0" layoutY="46.0" mnemonicParsing="false" text="Cheater Button" />
+      <Button fx:id="BtnCheater" layoutX="479.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#cheaterBtnPushed" text="Cheater Button" />
    </children>
 </AnchorPane>

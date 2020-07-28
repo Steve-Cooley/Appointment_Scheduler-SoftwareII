@@ -6,11 +6,10 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="914.0" prefWidth="1478.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.HomeScreenController">
    <children>
       <Label layoutX="133.0" layoutY="66.0" text="Home Screen" />
-      <Button fx:id="BtnExit" layoutX="1361.0" layoutY="848.0" mnemonicParsing="false" text="Exit" />
+      <Button fx:id="BtnLogout" layoutX="1361.0" layoutY="848.0" mnemonicParsing="false" text="Log Out" />
       <AnchorPane layoutX="799.0" layoutY="176.0" prefHeight="589.0" prefWidth="504.0">
          <children>
             <TableView fx:id="TVCal" layoutX="128.0" prefHeight="589.0" prefWidth="284.0">
