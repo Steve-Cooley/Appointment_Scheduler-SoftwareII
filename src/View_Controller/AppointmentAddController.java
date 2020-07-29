@@ -12,4 +12,5 @@ public class AppointmentAddController {
     public Spinner SpinnerMinute;
     public TextField FieldCustID;
     public TextField FieldUserID;
+
 }
