@@ -32,7 +32,7 @@
             </TableView>
             <Button fx:id="BtnAddCust" layoutX="824.0" layoutY="315.0" mnemonicParsing="false" text="Add" />
             <Button fx:id="BtnDelCust" layoutX="824.0" layoutY="565.0" mnemonicParsing="false" text="Delete" />
-            <Button fx:id="BtnCancel" layoutX="921.0" layoutY="615.0" mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="BtnCancel" layoutX="921.0" layoutY="615.0" mnemonicParsing="false" onMouseClicked="#setBtnCancel" text="Cancel" />
             <Button fx:id="BtnSave" layoutX="852.0" layoutY="615.0" mnemonicParsing="false" text="Save" />
             <GridPane layoutX="57.0" layoutY="148.0" prefHeight="382.0" prefWidth="406.0">
                <columnConstraints>

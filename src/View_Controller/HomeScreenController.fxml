@@ -9,7 +9,7 @@
 <AnchorPane prefHeight="914.0" prefWidth="1478.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.HomeScreenController">
    <children>
       <Label layoutX="133.0" layoutY="66.0" text="Home Screen" />
-      <Button fx:id="BtnLogout" layoutX="1361.0" layoutY="848.0" mnemonicParsing="false" text="Log Out" />
+      <Button fx:id="BtnLogout" layoutX="1361.0" layoutY="848.0" mnemonicParsing="false" onMouseClicked="#logoutBtnPressed" text="Log Out" />
       <AnchorPane layoutX="799.0" layoutY="176.0" prefHeight="589.0" prefWidth="504.0">
          <children>
             <TableView fx:id="TVCal" layoutX="128.0" prefHeight="589.0" prefWidth="284.0">
@@ -20,9 +20,9 @@
             </TableView>
             <AnchorPane layoutX="6.0" layoutY="195.0" prefHeight="200.0" prefWidth="137.0">
                <children>
-                  <Button fx:id="BtnAddAppt" layoutX="38.0" layoutY="29.0" mnemonicParsing="false" text="add" />
-                  <Button fx:id="BtnModAppt" layoutX="38.0" layoutY="87.0" mnemonicParsing="false" text="modify" />
-                  <Button fx:id="BtnDelAppt" layoutX="38.0" layoutY="140.0" mnemonicParsing="false" text="delete" />
+                  <Button fx:id="BtnAddAppt" layoutX="38.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#setBtnAddAppt" text="add" />
+                  <Button fx:id="BtnModAppt" layoutX="38.0" layoutY="87.0" mnemonicParsing="false" onMouseClicked="#setBtnModAppt" text="modify" />
+                  <Button fx:id="BtnDelAppt" layoutX="38.0" layoutY="140.0" mnemonicParsing="false" onMouseClicked="#setBtnDelAppt" text="delete" />
                   <Label layoutX="38.0" layoutY="6.0" text="Calendar" />
                </children>
             </AnchorPane>
@@ -38,9 +38,9 @@
             </TableView>
             <AnchorPane layoutX="6.0" layoutY="195.0" prefHeight="200.0" prefWidth="137.0">
                <children>
-                  <Button fx:id="BtnAddCust" layoutX="38.0" layoutY="29.0" mnemonicParsing="false" text="add" />
-                  <Button fx:id="BtnModCust" layoutX="38.0" layoutY="87.0" mnemonicParsing="false" text="modify" />
-                  <Button fx:id="BtnDelCust" layoutX="38.0" layoutY="140.0" mnemonicParsing="false" text="delete" />
+                  <Button fx:id="BtnAddCust" layoutX="38.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#setBtnAddCust" text="add" />
+                  <Button fx:id="BtnModCust" layoutX="38.0" layoutY="87.0" mnemonicParsing="false" onMouseClicked="#setBtnModCust" text="modify" />
+                  <Button fx:id="BtnDelCust" layoutX="38.0" layoutY="140.0" mnemonicParsing="false" onMouseClicked="#setBtnDelCust" text="delete" />
                   <Label layoutX="35.0" layoutY="6.0" text="Customers" />
                </children>
             </AnchorPane>

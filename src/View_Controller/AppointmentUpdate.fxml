@@ -17,7 +17,7 @@
    <children>
       <AnchorPane layoutX="3.0" layoutY="3.0" prefHeight="677.0" prefWidth="1014.0">
          <children>
-            <Label layoutX="57.0" layoutY="44.0" text="Add Appointment" />
+            <Label layoutX="57.0" layoutY="44.0" text="Update Appointment" />
             <TableView fx:id="TVCustomers" layoutX="487.0" layoutY="96.0" prefHeight="200.0" prefWidth="465.0">
                <columns>
                   <TableColumn prefWidth="75.0" text="C1" />

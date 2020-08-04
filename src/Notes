@@ -14,3 +14,13 @@ To move Main:
 - move those other files to the new package
 - if there is a problem, revert to that previous commit.  Try again.
 Moving main doesn't seem to work, so that is my workaround.
+
+To use a button to switch to a new scene:
+# The short version is just copy one of my other methods, altering the param to "getResource" to match the name of the fxml file
+- Make sure that the widget (button) has both an fxid and a field in the controller
+- Write the method in the controller, (I've been using a MouseEvent as a parameter)
+-- This method throws an IOException
+-- instantiates a Parent with the name of the fxml file that will be opened (the fxml file of the new scene)
+-- Instantiates a Scene taking the Parent as a parameter
+-- ackk, I don't fully understand some of the commands necessary, so just copy them.  LOL.
+--- they involve Stage, Node, either one or two casts with some weird nesting.  ??
