@@ -24,3 +24,10 @@ To use a button to switch to a new scene:
 -- Instantiates a Scene taking the Parent as a parameter
 -- ackk, I don't fully understand some of the commands necessary, so just copy them.  LOL.
 --- they involve Stage, Node, either one or two casts with some weird nesting.  ??
+
+To add a project to Github: (apparently intellij can't just make this happen even if given github creds)
+- create the new project on github via your web browser
+-- I think that you should avoid clicking the "add readme" button b/c that can cause initial push conflicts.  Could be wrong.
+- git remote add origin <PASTE GITHUB URL>    (At the command prompt within the relevant dir)
+-- I had to use the -f option (possibly d/t the presence of the readme mentioned above, note that this is dangerous
+   if  the project is already established [you could overwrite an existing project])
