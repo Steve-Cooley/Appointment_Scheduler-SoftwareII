@@ -1,0 +1,10 @@
+
+Get Connection String
+Create Database
+Reset Database
+Connection String
+Server name: wgudb.ucertify.com
+Port: 3306
+Database name: U067tn
+Username: U067tn
+Password: 53688695909 
