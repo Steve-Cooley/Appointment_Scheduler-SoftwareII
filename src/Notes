@@ -31,3 +31,53 @@ To add a project to Github: (apparently intellij can't just make this happen eve
 - git remote add origin <PASTE GITHUB URL>    (At the command prompt within the relevant dir)
 -- I had to use the -f option (possibly d/t the presence of the readme mentioned above, note that this is dangerous
    if  the project is already established [you could overwrite an existing project])
+
+Intellij Shortcuts:
+- ctrl+shft+Enter  Finishes line, meaning it will add all the right closing parentheses and semicolons.
+
+
+**********this was removed from Main after a video with Malcom Wabara.  Important info here!  ***********************
+
+        DBQuery.setStatement(conn);  //create statement Object
+        Statement statement = DBQuery.getStatement();
+
+        // raw sql insert statement
+        //String insertStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy) Values('US', '2020-02-22 00:00:00', 'admin', 'admin')";
+        /*
+        // Variable Insert
+        String countryName = "Canada";
+        String createDate = "2020-02-22 00:00:00";
+        String createdBy = "admin";
+        String lastUpdateBy = "admin";
+
+        String insertStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy)" +
+                "Values(" +
+                "'" + countryName + "'," +
+                "'" + createDate + "'," +
+                "'" + createdBy + "'," +
+                "'" + lastUpdateBy + "'" +
+                ")";
+
+         */
+
+        // Update statement
+        //String updateStatement = "UPDATE country SET country = 'Japan' WHERE country = 'Canada'";
+
+        // Delete statement
+        String deleteStatement = "DELETE FROM country WHERE country = 'Japan'";
+
+        // Execute SQL statement
+        statement.execute(deleteStatement);  //this param changed from insertStatement to updateStatement
+
+        //confirm rows effected
+        if(statement.getUpdateCount() > 0)
+            System.out.println( statement.getUpdateCount()+ " rows(s) affected");
+        else
+            System.out.println("No Changes!");
+
+
+
+
+**********main() after jdbcIII.  Notice that a lot of stuff has been commented out, because MW had us disable
+code as we made progress.  I think that JDBCIII might not be that helpful in the project d/t the fact that it uses the
+"bad old way" of doing things, namely "Statement" as opposed to "PreparedStatement".  Not sure though.
