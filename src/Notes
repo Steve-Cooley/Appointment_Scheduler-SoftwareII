@@ -81,3 +81,139 @@ Intellij Shortcuts:
 **********main() after jdbcIII.  Notice that a lot of stuff has been commented out, because MW had us disable
 code as we made progress.  I think that JDBCIII might not be that helpful in the project d/t the fact that it uses the
 "bad old way" of doing things, namely "Statement" as opposed to "PreparedStatement".  Not sure though.
+
+    public static void main(String[] args) throws Exception {
+        Connection conn = DBConnection.startConnection();  //connect to database
+
+        DBQuery.setStatement(conn);  //create statement Object
+        Statement statement = DBQuery.getStatement();  //get statement reference // I think that Statements are bad vs "PreparedStatements"
+
+        String country, createDate, createdBy, lastUpdateBy;
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Enter a country: ");
+
+        country = keyboard.nextLine();
+        createDate = "2020-03-14 00:00:00";
+        createdBy = "admin";
+        lastUpdateBy = "admin";
+
+        if(country.contains("'")) {
+            country = country.replace("'", "\\'");
+        }
+
+        //String selectStatement = "SELECT * FROM country WHERE " + country;  // select statement //from first half of video
+        String selectStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy)" +
+                "VALUES(" +
+                "'" + country + "'," +
+                "'" + createDate + "'," +
+                "'" + createdBy + "'," +
+                "'" + createdBy + "'" +
+                ")";
+
+
+        try {
+            statement.execute(selectStatement);  // execute statement
+
+            if(statement.getUpdateCount() > 0)
+                System.out.println(statement.getUpdateCount() + " row(s) affected!");
+            else
+                System.out.println("No change!");
+
+            //ResultSet rs = statement.getResultSet();  //get resultSet
+
+//            // Forward scroll ResultSet
+//            while (rs.next()) {
+//                int countryId = rs.getInt("countryId");
+//                String countryName = rs.getString("country");
+//                LocalDate date = rs.getDate("createDate").toLocalDate();  //"Date" is old and possibly deprecated.  Using LocalDate instead.
+//                LocalTime time = rs.getTime("createDate").toLocalTime();
+//                String createdBy = rs.getString("createdBy");
+//                LocalDateTime lastUpdate = rs.getTimestamp("lastUpdate").toLocalDateTime();
+//                // Malcom says "you don't have to retrieve every column in a result set."  So omitting one column here.
+//
+//                //display record
+//                System.out.println(countryId +
+//                        " | " + countryName +
+//                        " | " + date +
+//                        " | " + time +
+//                        " | " + createdBy +
+//                        " | " + lastUpdate);
+//            }
+        }
+        catch(Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+        launch(args);
+
+        DBConnection.closeConnection();
+    }
+
+
+
+************** Thoughts on where "Connections" should be
+
+In the instructor's examples, they open the connection in main before they start the UI, and close it after the UI closes.  The
+problem that I am anticipating is that for queries, deletes, etc, you need a reference to the Connection.  So if my
+Connection reference were in main, then it would have to be static, and that connection would have to remain open for
+the life of the program (and I think that is bad practice).  According to:
+https://stackoverflow.com/questions/9428573/is-it-safe-to-use-a-static-java-sql-connection-instance-in-a-multithreaded-syste
+you want that Connection to be open for as short a period of time as possible.  This may not be necessary for this app, b/c
+I won't have hundreds of users, but I dunno.  I think that the correct course of action is to open a connection when a
+"scene" is started so that it can be used to populate the data, then closed.  Then when a "save" button is pressed, the
+connection will reopen in order to save the changes then immediately close.  Of course a "save" button will open a new
+Scene, so immediately after the "save" function finishes it's job and closes, a new connection will be momentarily opened
+so that it can populate the new scene.  This seems excessive, but maybe that's the right way to do it?
+
+^^ Can confirm!  At the very end of MW's video, a student asks this very question, and MW answers.  (Think when a "save button is pressed)"  ^^
+
+************* An attempt to understand MW's series on jdbc, specifically PreparedStatements:
+
+1.  Connect to DB.  In my app, this involves using the startConnection() method, but that ultimately uses the getConnection()
+method from DriverManager.  I've been using "conn" as a reference.
+
+    Connection conn = DBConnection.startConnection();
+
+2.  Make the string to be altered (by the ps.setString() method).  It will use the '?' symbol for variable placeholders.
+
+'?' can be replaced by 'Value' in
+    "DELETE FROM tableName WHERE country = ?";
+
+3. In my app, I use DBQuery.setPreparedStatement(), which in turn uses conn.prepareStatement() (conn is a reference to
+an instance of Connection in all these steps)  This creates a PreparedStatement object. Note that this requires some
+exception control, the IDE will suggest using a throws clause, but it is probably better to use a try/catch block.
+
+     DBQuery.setPreparedStatement(conn, updateStatement);
+
+4.  In my app, I use DBQuery.getPreparedStatement() which returns the PreparedStatement object (which is a static field
+in my DBQuery class) and assigns it to a reference.  Following MW's example, I use "ps" as the reference.
+
+     PreparedStatement ps = DBQuery.getPreparedStatement();
+
+5. Set some strings to replace those question marks
+
+        ps.setString(1, newCountryName);    //note that these are 1 indexed, not 0 indexed.
+        ps.setString(2, createdBy);
+
+6. Use the execute method from PreparedStatement
+
+        ps.execute();
+
+
+7. OPTIONAL:  Check if any lines were effected.  If so, list how many.
+
+        if (ps.getUpdateCount() > 0) {
+            System.out.println(ps.getUpdateCount() + " rows affected");
+        } else {
+            System.out.println("No change!");
+        }
+
+8. Close Connection.  Note that for some reason, if you're throwing the SqlException, this will cause Intellij to change
+that to a more general Exception. Not I think that if I were using a try/catch statement, I'd have to have two catch
+clauses, one for the SQLException, one for  Exception.  Maybe Exception can handle all of it though.  Might be worth
+a shot.
+        DBConnection.closeConnection();
+
+
+
+

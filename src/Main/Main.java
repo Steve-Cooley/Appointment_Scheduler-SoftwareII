@@ -8,10 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.DBQuery;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -36,69 +33,176 @@ public class Main extends Application {
      *
      */
     public static void main(String[] args) throws Exception {
-        Connection conn = DBConnection.startConnection();  //connect to database
+        //Connection conn = DBConnection.startConnection();  //connect to database
+        //String insertStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy) VALUES(?,?,?,?)";
+        //String updateStatement = "UPDATE country SET country = ?, createdBy = ? WHERE country = ?";
+        //String deleteStatement = "DELETE FROM country WHERE country = ?";
 
-        DBQuery.setStatement(conn);  //create statement Object
-        Statement statement = DBQuery.getStatement();  //get statement reference // I think that Statements are bad vs "PreparedStatements"
+        //DBQuery.setPreparedStatement(conn, insertStatement); // create prepared statement
+        //DBQuery.setPreparedStatement(conn, deleteStatement); // create prepared statement
 
-        String country, createDate, createdBy, lastUpdateBy;
-        Scanner keyboard = new Scanner(System.in);
-        System.out.println("Enter a country: ");
+        //PreparedStatement ps = DBQuery.getPreparedStatement();  // reference to PreparedStatement
 
-        country = keyboard.nextLine();
-        createDate = "2020-03-14 00:00:00";
-        createdBy = "admin";
-        lastUpdateBy = "admin";
+        //String countryName;
+        //String countryName, newCountry, createdBy;
+        //String createDate = "2020-03-28 00:00:00"; // if you leave out time, it defaults to 00:00:00 (so it's optional)
+        //String createdBy = "admin";
+        //String lastUpdateBy = "admin";
 
-        if(country.contains("'")) {
-            country = country.replace("'", "\\'");
-        }
+        // Get keyboard input
+        //Scanner keyboard = new Scanner(System.in);
+        //System.out.print("Enter a country to update: ");
+        //System.out.print("Enter a country to Delete: ");
+        //countryName = keyboard.nextLine();
 
-        //String selectStatement = "SELECT * FROM country WHERE " + country;  // select statement //from first half of video
-        String selectStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy)" +
-                "VALUES(" +
-                "'" + country + "'," +
-                "'" + createDate + "'," +
-                "'" + createdBy + "'," +
-                "'" + createdBy + "'" +
-                ")";
-
-
-        try {
-            statement.execute(selectStatement);  // execute statement
-
-            if(statement.getUpdateCount() > 0)
-                System.out.println(statement.getUpdateCount() + " row(s) affected!");
-            else
-                System.out.println("No change!");
-
-            //ResultSet rs = statement.getResultSet();  //get resultSet
-
-//            // Forward scroll ResultSet
-//            while (rs.next()) {
-//                int countryId = rs.getInt("countryId");
-//                String countryName = rs.getString("country");
-//                LocalDate date = rs.getDate("createDate").toLocalDate();  //"Date" is old and possibly deprecated.  Using LocalDate instead.
-//                LocalTime time = rs.getTime("createDate").toLocalTime();
-//                String createdBy = rs.getString("createdBy");
-//                LocalDateTime lastUpdate = rs.getTimestamp("lastUpdate").toLocalDateTime();
-//                // Malcom says "you don't have to retrieve every column in a result set."  So omitting one column here.
+//        System.out.print("Enter a  new country: ");
+//        newCountry = keyboard.nextLine();
 //
-//                //display record
-//                System.out.println(countryId +
-//                        " | " + countryName +
-//                        " | " + date +
-//                        " | " + time +
-//                        " | " + createdBy +
-//                        " | " + lastUpdate);
-//            }
-        }
-        catch(Exception e) {
-            System.out.println(e.getMessage());
+//        System.out.print("Enter user: ");
+//        createdBy = keyboard.nextLine();
 
-        }
+        // Key value mapping
+        //ps.setString(1, countryName);
+//        ps.setString(2, createdBy);
+//        ps.setString(3, countryName);
+        //ps.setString(4, lastUpdateBy);
+
+        //ps.execute();
+
+        // Check rows affected
+//        if(ps.getUpdateCount() > 0)
+//            System.out.println(ps.getUpdateCount() + " rows affected");
+//        else
+//            System.out.println("No change");
+
         launch(args);
 
+        //DBConnection.closeConnection();
+
+        sqlSelect();
+        sqlInsert();
+        //sqlUpdate();
+        //sqlDelete();
+        sqlSelect();
+
+    }
+
+    private static void sqlSelect() throws Exception {
+        System.out.println("sqlSelect is running");
+        Connection conn = DBConnection.startConnection();  //connect to database
+        String selectStatement = "SELECT * FROM country";
+
+        DBQuery.setPreparedStatement(conn, selectStatement);
+        PreparedStatement ps = DBQuery.getPreparedStatement();
+
+        ps.execute();  // Execute prepared statement
+
+        ResultSet rs = ps.getResultSet();
+
+
+        // Forward scroll ResultSet
+        while (rs.next()) {
+            int countryId = rs.getInt("countryId");
+            String countryName = rs.getString("country");
+            LocalDate date = rs.getDate("createDate").toLocalDate();  //"Date" is old and possibly deprecated.  Using LocalDate instead.
+            LocalTime time = rs.getTime("createDate").toLocalTime();
+            String createdBy = rs.getString("createdBy");
+            LocalDateTime lastUpdate = rs.getTimestamp("lastUpdate").toLocalDateTime();
+            // Malcom says "you don't have to retrieve every column in a result set."  So omitting one column here.
+
+            //display record
+            System.out.println(countryId +
+                    " | " + countryName +
+                    " | " + date +
+                    " | " + time +
+                    " | " + createdBy +
+                    " | " + lastUpdate);
+        }
         DBConnection.closeConnection();
+
+    }
+
+    public static void sqlInsert() throws Exception {
+        System.out.println("sqlInsert is running");
+
+        Connection conn = DBConnection.startConnection();  //connect to database
+        String insertStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy) VALUES(?,?,?,?)";
+
+        DBQuery.setPreparedStatement(conn, insertStatement); // create prepared statement
+        PreparedStatement ps = DBQuery.getPreparedStatement();
+
+        String country = "Canada";
+        String createDate = LocalDateTime.now().toString();  //Warning this saves in local time!
+        String createdBy = "Steve";
+        String lastUpdateBy = "Steve";
+
+        ps.setString(1, country);
+        ps.setString(2, createDate);
+        ps.setString(3, createdBy);
+        ps.setString(4, lastUpdateBy);
+
+        ps.execute();
+
+        //check how many rows were effected:
+        if (ps.getUpdateCount() > 0) {
+            System.out.println(ps.getUpdateCount() + " rows affected");
+        } else {
+            System.out.println("No change!");
+        }
+
+        DBConnection.closeConnection();
+    }
+
+    public static void sqlUpdate() throws Exception {
+        System.out.println("sqlUpdate is running");
+
+        Connection conn = DBConnection.startConnection();
+        String updateStatement = "UPDATE country SET country = ?, createdBy = ? WHERE country = ?";
+
+        DBQuery.setPreparedStatement(conn, updateStatement);
+        PreparedStatement ps = DBQuery.getPreparedStatement();
+
+        String countryName = "'Canada'";
+        String newCountryName = "Canada";
+        String createdBy = "Steve";
+
+        ps.setString(1, newCountryName);
+        ps.setString(2, createdBy);
+        ps.setString(3, countryName);
+
+
+        ps.execute();
+
+        if (ps.getUpdateCount() > 0) {
+            System.out.println(ps.getUpdateCount() + " rows affected");
+        } else {
+            System.out.println("No change!");
+        }
+
+        DBConnection.closeConnection();
+    }
+
+    public static void sqlDelete() throws Exception {
+        System.out.println("sqlDelete is running");
+
+        Connection conn = DBConnection.startConnection();
+
+        String delStatement = "DELETE FROM country WHERE country = ?";
+
+        DBQuery.setPreparedStatement(conn, delStatement);
+        PreparedStatement ps = DBQuery.getPreparedStatement();
+
+        ps.setString(1, "Canada");
+
+        ps.execute();
+
+        if (ps.getUpdateCount() > 0) {
+            System.out.println(ps.getUpdateCount() + " rows affected");
+        } else {
+            System.out.println("No change!");
+        }
+
+        DBConnection.closeConnection();
+
     }
 }

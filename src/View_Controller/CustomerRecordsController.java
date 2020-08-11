@@ -1,10 +1,14 @@
 package View_Controller;
 
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class CustomerRecordsController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class CustomerRecordsController implements Initializable {
     public TableView TVCust;
     public TableColumn TCID;
     public TableColumn TCName;
@@ -14,4 +18,9 @@ public class CustomerRecordsController {
     public Button BtnEditCust;
     public Button BtnAddCust;
     public Button BtnCancel;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }

@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane prefHeight="700.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.CustomerAddController">
    <children>
       <Label layoutX="38.0" layoutY="38.0" text="Add Customer" />
@@ -30,18 +29,18 @@
             <Label text="Name" GridPane.rowIndex="1" />
             <Label text="Street" GridPane.rowIndex="2" />
             <Label text="City" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="FieldId" GridPane.columnIndex="1" />
+            <TextField fx:id="FieldName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="FieldAddress" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="FieldCity" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Phone" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="FieldPhone" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
       <ButtonBar layoutX="373.0" layoutY="599.0" prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Save" />
-            <Button mnemonicParsing="false" text="Cancel" />
+          <Button fx:id="BtnSave" mnemonicParsing="false" text="Save" />
+            <Button fx:id="BtnCancel" mnemonicParsing="false" text="Cancel" />
         </buttons>
       </ButtonBar>
    </children>
