@@ -99,7 +99,7 @@ public class HomeScreenController implements Initializable {
     }
 
     public void setBtnDelAppt(MouseEvent m) throws IOException {
-        System.out.println("del appt");  //fixme
+        System.out.println("del appt pressed");  //fixme
 
     }
 

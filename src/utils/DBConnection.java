@@ -31,7 +31,7 @@ public class DBConnection {
             conn = DriverManager.getConnection(jdbcURL, username, password);
             System.out.println("Connection Successful");
         }
-        catch (ClassNotFoundException e){
+        catch(ClassNotFoundException e) {
             System.out.println("classnotfound " + e.getMessage());
         }
         catch(SQLException e) {

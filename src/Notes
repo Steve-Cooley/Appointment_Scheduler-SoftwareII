@@ -176,8 +176,7 @@ method from DriverManager.  I've been using "conn" as a reference.
 
 2.  Make the string to be altered (by the ps.setString() method).  It will use the '?' symbol for variable placeholders.
 
-'?' can be replaced by 'Value' in
-    "DELETE FROM tableName WHERE country = ?";
+String delStatement = "DELETE FROM country WHERE country = ?";
 
 3. In my app, I use DBQuery.setPreparedStatement(), which in turn uses conn.prepareStatement() (conn is a reference to
 an instance of Connection in all these steps)  This creates a PreparedStatement object. Note that this requires some

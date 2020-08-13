@@ -33,57 +33,16 @@ public class Main extends Application {
      *
      */
     public static void main(String[] args) throws Exception {
-        //Connection conn = DBConnection.startConnection();  //connect to database
-        //String insertStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy) VALUES(?,?,?,?)";
-        //String updateStatement = "UPDATE country SET country = ?, createdBy = ? WHERE country = ?";
-        //String deleteStatement = "DELETE FROM country WHERE country = ?";
 
-        //DBQuery.setPreparedStatement(conn, insertStatement); // create prepared statement
-        //DBQuery.setPreparedStatement(conn, deleteStatement); // create prepared statement
-
-        //PreparedStatement ps = DBQuery.getPreparedStatement();  // reference to PreparedStatement
-
-        //String countryName;
-        //String countryName, newCountry, createdBy;
-        //String createDate = "2020-03-28 00:00:00"; // if you leave out time, it defaults to 00:00:00 (so it's optional)
-        //String createdBy = "admin";
-        //String lastUpdateBy = "admin";
-
-        // Get keyboard input
-        //Scanner keyboard = new Scanner(System.in);
-        //System.out.print("Enter a country to update: ");
-        //System.out.print("Enter a country to Delete: ");
-        //countryName = keyboard.nextLine();
-
-//        System.out.print("Enter a  new country: ");
-//        newCountry = keyboard.nextLine();
-//
-//        System.out.print("Enter user: ");
-//        createdBy = keyboard.nextLine();
-
-        // Key value mapping
-        //ps.setString(1, countryName);
-//        ps.setString(2, createdBy);
-//        ps.setString(3, countryName);
-        //ps.setString(4, lastUpdateBy);
-
-        //ps.execute();
-
-        // Check rows affected
-//        if(ps.getUpdateCount() > 0)
-//            System.out.println(ps.getUpdateCount() + " rows affected");
-//        else
-//            System.out.println("No change");
 
         launch(args);
 
-        //DBConnection.closeConnection();
 
-        sqlSelect();
-        sqlInsert();
+
+        //sqlInsert();
         //sqlUpdate();
         //sqlDelete();
-        sqlSelect();
+        //sqlSelect();
 
     }
 
