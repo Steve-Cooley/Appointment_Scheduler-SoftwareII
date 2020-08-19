@@ -213,6 +213,6 @@ clauses, one for the SQLException, one for  Exception.  Maybe Exception can hand
 a shot.
         DBConnection.closeConnection();
 
-
-
-
+**********
+I'm starting to realize that I have DB IO code all over the place, and I don't know how I feel about it.  I think that
+this is what DAO is all about.  Maybe it *would* be nice to have my IO stuff in dedicated files.

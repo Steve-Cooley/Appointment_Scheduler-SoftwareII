@@ -32,8 +32,8 @@
          <children>
             <TableView fx:id="TVCust" layoutX="128.0" prefHeight="589.0" prefWidth="284.0">
                <columns>
-                  <TableColumn prefWidth="75.0" text="C1" />
-                  <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn fx:id="tcCustId" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="tcCustName" prefWidth="208.0" text="Name" />
                </columns>
             </TableView>
             <AnchorPane layoutX="6.0" layoutY="195.0" prefHeight="200.0" prefWidth="137.0">

@@ -18,4 +18,9 @@ public class Address {
     private SimpleStringProperty createdBy;
     private ZonedDateTime lastUpdate;
     private SimpleStringProperty lastUpdateBy;
+
+    public Address(String addressString){
+        // todo DO I need this constructor if I'm kind of merging address with Customer?
+    }
+
 }

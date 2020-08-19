@@ -1,12 +1,17 @@
 package View_Controller;
 
+import Model.Appointment;
+import Model.Customer;
+import Model.Inventory;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import javafx.scene.input.MouseEvent;
@@ -20,18 +25,25 @@ public class HomeScreenController implements Initializable {
     public Button BtnAddAppt;
     public Button BtnModAppt;
     public Button BtnDelAppt;
-    public TableView TVCal;
-    public TableView TVCust;
+    public TableView<Appointment> TVCal;
+    public TableView<Customer> TVCust;
     public Button BtnAddCust;
     public Button BtnModCust;
     public Button BtnDelCust;
+    public TableColumn<TableView<Customer>, Customer> tcCustId; //todo generics
+    public TableColumn<TableView<Customer>, Customer> tcCustName; //todo generics
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //populate customer table view
+        Inventory.fetchCustomersFromDB();
+        TVCust.setItems(Inventory.getCustomers());
+        tcCustId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tcCustName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        // populate Calendar/Appointment table
+
 
     }
-
-
 
     public void logoutBtnPressed(MouseEvent mouseEvent) throws IOException {
         System.out.println("Logout button pressed.");

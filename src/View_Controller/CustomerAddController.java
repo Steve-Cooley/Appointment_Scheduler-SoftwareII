@@ -36,6 +36,7 @@ public class CustomerAddController implements Initializable {
         //
     }
 
+
     @FXML
     public void setBtnSave(MouseEvent m) throws IOException {
         System.out.println("save button pressed");
@@ -49,30 +50,32 @@ public class CustomerAddController implements Initializable {
         Connection conn = DBConnection.startConnection();
 
         // insert address
-        try {
-            String insertAddr = "Insert INTO address(address, phone, address2, cityId, postalCode, createDate," +
-                    " createdBy, lastUpdate, lastUpdateBy) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
-            DBQuery.setPreparedStatement(conn, insertAddr);
-            PreparedStatement ps = DBQuery.getPreparedStatement();
+        DBQuery.insertAddressString(addr, phone);
 
-            //Normal fields
-            ps.setString(1, addr);
-            ps.setString(2, phone);
-            //Filler fields
-            ps.setString(3, "0"); //address 2
-            ps.setInt(4, 1);  //cityId
-            ps.setString(5, "0"); //postalCode
-            ps.setString(6, LocalDateTime.now().toString()); //createDate
-            ps.setString(7, "0");  //createdBy
-            ps.setString(8, LocalDateTime.now().toString()); //lastUpdate
-            ps.setString(9, "0"); //lastUpdateBy
-
-            System.out.println("Insert String is: \n" + ps.toString());
-
-            ps.execute();
-        } catch(SQLException e) {
-            System.out.println("SQLException, save button, insert addr");
-        }
+//        try {
+//            String insertAddr = "Insert INTO address(address, phone, address2, cityId, postalCode, createDate," +
+//                    " createdBy, lastUpdate, lastUpdateBy) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+//            DBQuery.setPreparedStatement(conn, insertAddr);
+//            PreparedStatement ps = DBQuery.getPreparedStatement();
+//
+//            //Normal fields
+//            ps.setString(1, addr);
+//            ps.setString(2, phone);
+//            //Filler fields
+//            ps.setString(3, "0"); //address 2
+//            ps.setInt(4, 1);  //cityId
+//            ps.setString(5, "0"); //postalCode
+//            ps.setString(6, LocalDateTime.now().toString()); //createDate
+//            ps.setString(7, "0");  //createdBy
+//            ps.setString(8, LocalDateTime.now().toString()); //lastUpdate
+//            ps.setString(9, "0"); //lastUpdateBy
+//
+//            System.out.println("Insert String is: \n" + ps.toString());
+//
+//            ps.execute();
+//        } catch(SQLException e) {
+//            System.out.println("SQLException, save button, insert addr");
+//        }
 
         // get address ID (select statement)
         try {

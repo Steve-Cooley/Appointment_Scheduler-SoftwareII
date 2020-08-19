@@ -1,5 +1,6 @@
 package Main;
 
+import Model.Inventory;
 import utils.DBConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -29,25 +30,31 @@ public class Main extends Application {
     /*
      *   It is odd that there are basically 2 exception methods here (one handled in DBConnection),
      *   but this meets part of requirement F
-     *  todo:  Move all code put in during MW's videos.  Only things that belong are start, launch, close.
      *
      */
     public static void main(String[] args) throws Exception {
 
 
-        launch(args);
 
 
-
+        //  The 4 following call basic sql actions found here in this class for testing purposes
         //sqlInsert();
         //sqlUpdate();
         //sqlDelete();
         //sqlSelect();
 
+        //   Test DBQuery methods
+        //DBQuery.getAddressString(4);
+
+        //  Test methods in Inventory
+        //Inventory.addCustomer();
+
+
+        launch(args);  // Launch GUI.
     }
 
     private static void sqlSelect() throws Exception {
-        System.out.println("sqlSelect is running");
+        System.out.println("sqlSelect is running"); //todo remove
         Connection conn = DBConnection.startConnection();  //connect to database
         String selectStatement = "SELECT * FROM country";
 
