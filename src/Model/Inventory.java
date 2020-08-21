@@ -22,15 +22,15 @@ public class Inventory {
     //      Customer section
     // fetch all customers (from DB)
     public static void fetchCustomersFromDB() {
+        customers.clear();
+        //System.out.println("Just ran custemers.removeAll.  What remains is: " + customers);
         int customerId;
         String customerName;
-        //int addressId;  //todo do I need this right now?
-
 
         System.out.println("fetchCustomers for table is running");
 
         Connection conn = DBConnection.startConnection();
-        String selectStatement = "SELECT * FROM customer";  //fixme should I restrict this instead of fetching '*'?
+        String selectStatement = "SELECT * FROM customer";
 
         try {
             DBQuery.setPreparedStatement(conn, selectStatement);
@@ -43,17 +43,17 @@ public class Inventory {
 
             // go through each line in DB, adding a new customer to customers
             while (rs.next()) {
-                System.out.println("while loop, fetchCustomerFromDB");
+                //System.out.println("while loop, fetchCustomerFromDB");
                 customerId = rs.getInt("customerId");
-                System.out.println(customerId);
+                //System.out.println(customerId);
                 customerName = rs.getString("customerName");
-                System.out.println(customerName);
+                //System.out.println(customerName);
                 //addressId = rs.getInt("addressId");
 
                 Customer cust = new Customer(customerId, customerName);
                 customers.add(cust);
             }
-            System.out.println("List of customers: " + customers.toString());
+            //System.out.println("List of customers: " + customers.toString());
         } catch(SQLException e) {
             System.out.println("SQLException, fetchCustomer, Inventory");
         }

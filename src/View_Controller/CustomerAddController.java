@@ -16,10 +16,6 @@ import utils.DBQuery;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class CustomerAddController implements Initializable {
@@ -38,7 +34,7 @@ public class CustomerAddController implements Initializable {
 
 
     @FXML
-    public void setBtnSave(MouseEvent m) throws IOException {
+    public void setBtnSave(MouseEvent m) throws Exception {
         System.out.println("save button pressed");
         
         String name = fieldName.getText();
@@ -50,75 +46,15 @@ public class CustomerAddController implements Initializable {
         Connection conn = DBConnection.startConnection();
 
         // insert address
-        DBQuery.insertAddressString(addr, phone);
+        addrId = DBQuery.insertAddressAndReturnID(addr, phone, conn);
 
-//        try {
-//            String insertAddr = "Insert INTO address(address, phone, address2, cityId, postalCode, createDate," +
-//                    " createdBy, lastUpdate, lastUpdateBy) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
-//            DBQuery.setPreparedStatement(conn, insertAddr);
-//            PreparedStatement ps = DBQuery.getPreparedStatement();
-//
-//            //Normal fields
-//            ps.setString(1, addr);
-//            ps.setString(2, phone);
-//            //Filler fields
-//            ps.setString(3, "0"); //address 2
-//            ps.setInt(4, 1);  //cityId
-//            ps.setString(5, "0"); //postalCode
-//            ps.setString(6, LocalDateTime.now().toString()); //createDate
-//            ps.setString(7, "0");  //createdBy
-//            ps.setString(8, LocalDateTime.now().toString()); //lastUpdate
-//            ps.setString(9, "0"); //lastUpdateBy
-//
-//            System.out.println("Insert String is: \n" + ps.toString());
-//
-//            ps.execute();
-//        } catch(SQLException e) {
-//            System.out.println("SQLException, save button, insert addr");
-//        }
+        // get address ID (select statement)  fixme if insertAddress returned an id, this might not be necessary
+        //addrId = DBQuery.getAddressID(addr, addrId, conn);
 
-        // get address ID (select statement)
-        try {
-            String selectS = "SELECT addressId FROM address WHERE address = ?";
-            DBQuery.setPreparedStatement(conn, selectS);
-            PreparedStatement ps = DBQuery.getPreparedStatement();
+        // insert customer
+        DBQuery.insertCustomer(name, addrId, conn);
 
-            ps.setString(1, addr);
-
-            ps.execute();
-
-            ResultSet rs = ps.getResultSet();
-            if(rs.next()){
-                addrId = rs.getInt("addressId");
-                System.out.println("The address ID is: " + addrId);
-            }
-        } catch (SQLException throwables) {
-            System.out.println("SQLException, save button, get addressId ");
-            throwables.printStackTrace();
-        }
-
-        // insert user
-        try {
-            String insertString = "INSERT INTO customer(customerName, addressId," +
-                    "active, createDate, createdBy, lastUpdate, lastUpdateBy) values(?, ?, ?, ?, ?, ?, ?)";
-            DBQuery.setPreparedStatement(conn, insertString);
-            PreparedStatement ps = DBQuery.getPreparedStatement();
-            ps.setString(1, name);
-            ps.setInt(2, addrId);
-            //filler fields
-            ps.setInt(3, 0);   //todo not sure what active is supposed to do, might need to fix
-            ps.setString(4, LocalDateTime.now().toString());
-            ps.setString(5, "Temp User");  //createdBy //fixme  probably need to implement this once I have users
-            ps.setString(6, LocalDateTime.now().toString()); //lastUpdate
-            ps.setString(7, "TempUser2");  //lastUpdateBy //todo
-
-            ps.execute();
-
-        } catch (SQLException e) {
-            System.out.println("SQLException, save button, insert user");
-            e.printStackTrace();
-        }
-        System.out.println("end of save button");
+        DBConnection.closeConnection();
 
         //switch back to home screen
         Parent parent = FXMLLoader.load(getClass().getResource("HomeScreenController.fxml"));

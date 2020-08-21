@@ -40,9 +40,8 @@ public class HomeScreenController implements Initializable {
         TVCust.setItems(Inventory.getCustomers());
         tcCustId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tcCustName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        // populate Calendar/Appointment table
 
-
+        // populate Calendar/Appointment table todo
     }
 
     public void logoutBtnPressed(MouseEvent mouseEvent) throws IOException {

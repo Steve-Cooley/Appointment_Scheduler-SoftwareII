@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="49.0" layoutY="43.0" text="Modify Customer" />
@@ -23,19 +22,16 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <Label text="ID" />
             <Label text="Name" GridPane.rowIndex="1" />
-            <Label text="Street" GridPane.rowIndex="2" />
-            <Label text="City" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Phone" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Address" GridPane.rowIndex="2" />
+            <TextField disable="true" GridPane.columnIndex="1" />
+            <TextField fx:id="fieldName" promptText="One Line Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="fieldAddress" promptText="One Line Address" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Phone" GridPane.rowIndex="3" />
+            <TextField fx:id="fieldPhone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <ButtonBar layoutX="391.0" layoutY="593.0" prefHeight="40.0" prefWidth="200.0">
