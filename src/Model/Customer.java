@@ -27,14 +27,10 @@ public class Customer {
         this.phone = new SimpleStringProperty(phone);
     }
 
-    /**
-     * Constructor to be used in populating home screen
-     * @param id
-     * @param name
-     */
-    public Customer(int id, String name) {
+    public Customer(int id, String name, int addressId) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
+        this.addressId = new SimpleIntegerProperty(addressId);
     }
 
     public int getId() {

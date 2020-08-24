@@ -2,6 +2,8 @@ package Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import utils.AddressSQL;
+import utils.CustomerSQL;
 import utils.DBConnection;
 import utils.DBQuery;
 
@@ -19,13 +21,17 @@ public class Inventory {
         return customers;
     }
 
+    public static void clearCustomers() {
+        customers.clear();
+    }
+
     //      Customer section
     // fetch all customers (from DB)
     public static void fetchCustomersFromDB() {
-        customers.clear();
-        //System.out.println("Just ran custemers.removeAll.  What remains is: " + customers);
+        clearCustomers();
         int customerId;
         String customerName;
+        int addressId;
 
         System.out.println("fetchCustomers for table is running");
 
@@ -35,7 +41,6 @@ public class Inventory {
         try {
             DBQuery.setPreparedStatement(conn, selectStatement);
             PreparedStatement ps = DBQuery.getPreparedStatement();
-            //System.out.println("fetch customer string: " + );
 
             ps.execute();
 
@@ -48,28 +53,22 @@ public class Inventory {
                 //System.out.println(customerId);
                 customerName = rs.getString("customerName");
                 //System.out.println(customerName);
-                //addressId = rs.getInt("addressId");
+                addressId = rs.getInt("addressId");
 
-                Customer cust = new Customer(customerId, customerName);
+                //Customer cust = new Customer(customerId, customerName, addressId);
+                Customer cust = new Customer(customerId, customerName, addressId,
+                        AddressSQL.getAddressString(addressId),AddressSQL.getPhone(addressId));
                 customers.add(cust);
+
+                DBConnection.closeConnection();
             }
             //System.out.println("List of customers: " + customers.toString());
-        } catch(SQLException e) {
-            System.out.println("SQLException, fetchCustomer, Inventory");
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
-    // get all customers
-    // add customer todo is this necessary?  I have this in the customerController.  Should it be here?
-    // delete customer
-    // modify customer
 
-    //      User section
-
-    //      Appointment section
-    // fetch all appointments (from db)
-    // get all appointments
-    // add appointment
-    // delete appointment
-    // modify appointment
-
+    public static void delCustomer(Customer customer) {
+        customers.remove(customer);
+    }
 }

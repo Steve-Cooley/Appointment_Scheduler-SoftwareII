@@ -20,7 +20,7 @@ public class Address {
     private SimpleStringProperty lastUpdateBy;
 
     public Address(String addressString){
-        // todo DO I need this constructor if I'm kind of merging address with Customer?
+        // todo DO I need this constructor if I'm kind of merging address with Customer? Do I need this class at all?
     }
 
 }

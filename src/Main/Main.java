@@ -65,7 +65,6 @@ public class Main extends Application {
 
         ResultSet rs = ps.getResultSet();
 
-
         // Forward scroll ResultSet
         while (rs.next()) {
             int countryId = rs.getInt("countryId");

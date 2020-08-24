@@ -12,7 +12,7 @@
       <Button fx:id="BtnLogout" layoutX="1361.0" layoutY="848.0" mnemonicParsing="false" onMouseClicked="#logoutBtnPressed" text="Log Out" />
       <AnchorPane layoutX="799.0" layoutY="176.0" prefHeight="589.0" prefWidth="504.0">
          <children>
-            <TableView fx:id="TVCal" layoutX="128.0" prefHeight="589.0" prefWidth="284.0">
+            <TableView fx:id="appointmentTableView" layoutX="128.0" prefHeight="589.0" prefWidth="284.0">
                <columns>
                   <TableColumn prefWidth="75.0" text="C1" />
                   <TableColumn prefWidth="75.0" text="C2" />
@@ -30,7 +30,7 @@
       </AnchorPane>
       <AnchorPane layoutX="143.0" layoutY="176.0" prefHeight="589.0" prefWidth="504.0">
          <children>
-            <TableView fx:id="TVCust" layoutX="128.0" prefHeight="589.0" prefWidth="284.0">
+            <TableView fx:id="customerTableView" layoutX="128.0" prefHeight="589.0" prefWidth="284.0">
                <columns>
                   <TableColumn fx:id="tcCustId" prefWidth="75.0" text="ID" />
                   <TableColumn fx:id="tcCustName" prefWidth="208.0" text="Name" />

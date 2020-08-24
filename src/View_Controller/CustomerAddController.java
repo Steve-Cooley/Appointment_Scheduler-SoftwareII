@@ -10,8 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import utils.AddressSQL;
+import utils.CustomerSQL;
 import utils.DBConnection;
-import utils.DBQuery;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,13 +47,13 @@ public class CustomerAddController implements Initializable {
         Connection conn = DBConnection.startConnection();
 
         // insert address
-        addrId = DBQuery.insertAddressAndReturnID(addr, phone, conn);
+        addrId = AddressSQL.insertAddressAndReturnID(addr, phone, conn);
 
         // get address ID (select statement)  fixme if insertAddress returned an id, this might not be necessary
         //addrId = DBQuery.getAddressID(addr, addrId, conn);
 
         // insert customer
-        DBQuery.insertCustomer(name, addrId, conn);
+        CustomerSQL.insertCustomer(name, addrId, conn);
 
         DBConnection.closeConnection();
 

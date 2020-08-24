@@ -15,6 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import javafx.scene.input.MouseEvent;
+import utils.CustomerSQL;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,8 +27,8 @@ public class HomeScreenController implements Initializable {
     public Button BtnAddAppt;
     public Button BtnModAppt;
     public Button BtnDelAppt;
-    public TableView<Appointment> TVCal;
-    public TableView<Customer> TVCust;
+    public TableView<Appointment> appointmentTableView;
+    public TableView<Customer> customerTableView;
     public Button BtnAddCust;
     public Button BtnModCust;
     public Button BtnDelCust;
@@ -37,7 +39,7 @@ public class HomeScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //populate customer table view
         Inventory.fetchCustomersFromDB();
-        TVCust.setItems(Inventory.getCustomers());
+        customerTableView.setItems(Inventory.getCustomers());
         tcCustId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tcCustName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
@@ -70,8 +72,12 @@ public class HomeScreenController implements Initializable {
 
     public void setBtnModCust(MouseEvent m) throws IOException {
         System.out.println("mod cust button");
+        //Send in cust object
+        CustomerModifyController.setCustomer(customerTableView.getSelectionModel().getSelectedItem());
+
         Parent p = FXMLLoader.load(getClass().getResource("CustomerModify.fxml"));
         Scene scene = new Scene(p);
+
 
         //Set stage info
         Stage window = (Stage)((Node) m.getSource()).getScene().getWindow();
@@ -80,9 +86,14 @@ public class HomeScreenController implements Initializable {
         window.show();
     }
 
+
     public void setBtnDelCust(MouseEvent m) throws IOException {
         System.out.println("del cust button");  //fixme
-
+        Customer customer = customerTableView.getSelectionModel().getSelectedItem();
+        //Delete from DB
+        CustomerSQL.deleteCustomer(customer.getId(), customer.getAddressId());
+        // Delete from Inventory, (and from gui table)
+        Inventory.delCustomer(customer);
     }
 
     public void setBtnAddAppt(MouseEvent m) throws IOException {
@@ -111,7 +122,6 @@ public class HomeScreenController implements Initializable {
 
     public void setBtnDelAppt(MouseEvent m) throws IOException {
         System.out.println("del appt pressed");  //fixme
-
     }
 
 }
