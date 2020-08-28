@@ -1,5 +1,7 @@
 package utils;
 
+import Model.Customer;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -52,4 +54,42 @@ public class CustomerSQL {
         }
     }
 
+    public static void updateCustomer(Customer customer, String newName, String newAddress, String newPhone) {
+        // identifying values
+        int customerId = customer.getId();
+        int addressId = customer.getAddressId();
+
+        //new values
+
+
+        String cStatement = "UPDATE customer SET customerName = ? WHERE customerId = ?; ";
+        String aStatement = "UPDATE address SET address = ?, phone = ? WHERE addressId = ?;";
+
+        try {
+            Connection conn = DBConnection.startConnection();
+            DBQuery.setPreparedStatement(conn, cStatement);
+            PreparedStatement ps = DBQuery.getPreparedStatement();
+            ps.setString(1, newName);
+            ps.setInt(2, customerId);
+            ps.execute();
+            DBConnection.closeConnection();
+        } catch(Exception e) {
+            System.out.println("problem updating name");
+            e.printStackTrace();
+        }
+
+        try {
+            Connection conn = DBConnection.startConnection();
+            DBQuery.setPreparedStatement(conn, aStatement);
+            PreparedStatement ps = DBQuery.getPreparedStatement();
+            ps.setString(1, newAddress);
+            ps.setString(2, newPhone);
+            ps.setInt(3, addressId);
+            ps.execute();
+            DBConnection.closeConnection();
+        } catch(Exception e) {
+            System.out.println("Problem updating address");
+            e.printStackTrace();
+        }
+    }
 }

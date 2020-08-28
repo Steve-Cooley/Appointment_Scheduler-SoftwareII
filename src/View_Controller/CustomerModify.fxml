@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.CustomerModifyController">
    <children>
       <Label layoutX="49.0" layoutY="43.0" text="Modify Customer" />
       <GridPane layoutX="141.0" layoutY="165.0" prefHeight="284.0" prefWidth="293.0">
@@ -36,8 +36,8 @@
       </GridPane>
       <ButtonBar layoutX="391.0" layoutY="593.0" prefHeight="40.0" prefWidth="200.0">
          <buttons>
-            <Button mnemonicParsing="false" text="Save" />
-            <Button mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="btnSave" mnemonicParsing="false" onMouseClicked="#setBtnSave" text="Save" />
+            <Button fx:id="btnCancel" mnemonicParsing="false" onMouseClicked="#setBtnCancel" text="Cancel" />
          </buttons>
       </ButtonBar>
    </children>

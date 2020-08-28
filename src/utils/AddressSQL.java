@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 public class AddressSQL {
 
+    // delete?  fixme
     public static String getPhone(int id) {
         String phone = "Phone not retrieved";
         String selectStatment = "SELECT phone FROM address WHERE addressId = ?";
@@ -29,6 +30,7 @@ public class AddressSQL {
         return phone;
     }
 
+    // Deprecate?  fixme
     public static String getAddressString(int id) {
         System.out.println("DBQuery.getAddress is running");
         String addr = "Address was not retrieved";  // Initialized to informative string
@@ -60,6 +62,7 @@ public class AddressSQL {
         return addr;
     }
 
+    // delete?  fixme
     public static int getAddressID(String addr, int addrId, Connection conn) {
         System.out.println("getAddressID is running");
         try {

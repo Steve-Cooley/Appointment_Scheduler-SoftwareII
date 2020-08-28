@@ -32,8 +32,10 @@ public class HomeScreenController implements Initializable {
     public Button BtnAddCust;
     public Button BtnModCust;
     public Button BtnDelCust;
-    public TableColumn<TableView<Customer>, Customer> tcCustId; //todo generics
-    public TableColumn<TableView<Customer>, Customer> tcCustName; //todo generics
+    public TableColumn<TableView<Customer>, Customer> tcCustId;
+    public TableColumn<TableView<Customer>, Customer> tcCustName;
+    public TableColumn<TableView<Customer>, Customer> tcCustAddress;
+    public TableColumn<TableView<Customer>, Customer> tcCustPhone;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,6 +44,8 @@ public class HomeScreenController implements Initializable {
         customerTableView.setItems(Inventory.getCustomers());
         tcCustId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tcCustName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tcCustAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        tcCustPhone.setCellValueFactory(new PropertyValueFactory<>("phone")); //fixme doesn't work
 
         // populate Calendar/Appointment table todo
     }

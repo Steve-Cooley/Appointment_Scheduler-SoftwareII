@@ -28,12 +28,14 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="143.0" layoutY="176.0" prefHeight="589.0" prefWidth="504.0">
+      <AnchorPane layoutX="104.0" layoutY="176.0" prefHeight="589.0" prefWidth="634.0">
          <children>
-            <TableView fx:id="customerTableView" layoutX="128.0" prefHeight="589.0" prefWidth="284.0">
+            <TableView fx:id="customerTableView" layoutX="128.0" prefHeight="589.0" prefWidth="467.0">
                <columns>
-                  <TableColumn fx:id="tcCustId" prefWidth="75.0" text="ID" />
-                  <TableColumn fx:id="tcCustName" prefWidth="208.0" text="Name" />
+                  <TableColumn fx:id="tcCustId" prefWidth="43.0" text="ID" />
+                  <TableColumn fx:id="tcCustName" prefWidth="134.0" text="Name" />
+                  <TableColumn fx:id="tcCustAddress" prefWidth="180.0" text="Address" />
+                  <TableColumn fx:id="tcCustPhone" prefWidth="109.0" text="Phone" />
                </columns>
             </TableView>
             <AnchorPane layoutX="6.0" layoutY="195.0" prefHeight="200.0" prefWidth="137.0">

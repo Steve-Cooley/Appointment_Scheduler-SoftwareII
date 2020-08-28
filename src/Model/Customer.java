@@ -27,10 +27,10 @@ public class Customer {
         this.phone = new SimpleStringProperty(phone);
     }
 
-    public Customer(int id, String name, int addressId) {
-        this.id = new SimpleIntegerProperty(id);
-        this.name = new SimpleStringProperty(name);
-        this.addressId = new SimpleIntegerProperty(addressId);
+
+    public String getPhone() {
+        System.out.println("getting phone");
+        return phone.get();
     }
 
     public int getId() {
@@ -70,6 +70,7 @@ public class Customer {
     }
 
     public String getAddress() {
+        System.out.println("getting address");
         return address.get();
     }
 
