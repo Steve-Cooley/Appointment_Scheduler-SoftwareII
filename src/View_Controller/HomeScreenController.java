@@ -36,6 +36,9 @@ public class HomeScreenController implements Initializable {
     public TableColumn<TableView<Customer>, Customer> tcCustName;
     public TableColumn<TableView<Customer>, Customer> tcCustAddress;
     public TableColumn<TableView<Customer>, Customer> tcCustPhone;
+    public TableColumn<TableView<Appointment>, Appointment> tcStart;
+    public TableColumn<TableView<Appointment>, Appointment> tcEnd;
+    public TableColumn<TableView<Appointment>, Appointment> tcCustomer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -48,6 +51,10 @@ public class HomeScreenController implements Initializable {
         tcCustPhone.setCellValueFactory(new PropertyValueFactory<>("phone")); //fixme doesn't work
 
         // populate Calendar/Appointment table todo
+        appointmentTableView.setItems(Inventory.getAppointments());
+        tcCustomer.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        tcStart.setCellValueFactory(new PropertyValueFactory<>("start"));
+        tcEnd.setCellValueFactory(new PropertyValueFactory<>("end"));
     }
 
     public void logoutBtnPressed(MouseEvent mouseEvent) throws IOException {

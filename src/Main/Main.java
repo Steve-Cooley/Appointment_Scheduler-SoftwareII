@@ -49,6 +49,9 @@ public class Main extends Application {
         //  Test methods in Inventory
         //Inventory.addCustomer();
 
+        //testing fetchAppointmentsFromDb with emphasis on timezone stuff.
+        Inventory.fetchAppointmentsFromDB();
+
 
         launch(args);  // Launch GUI.
     }

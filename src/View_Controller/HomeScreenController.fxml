@@ -10,12 +10,13 @@
    <children>
       <Label layoutX="133.0" layoutY="66.0" text="Home Screen" />
       <Button fx:id="BtnLogout" layoutX="1361.0" layoutY="848.0" mnemonicParsing="false" onMouseClicked="#logoutBtnPressed" text="Log Out" />
-      <AnchorPane layoutX="799.0" layoutY="176.0" prefHeight="589.0" prefWidth="504.0">
+      <AnchorPane layoutX="799.0" layoutY="176.0" prefHeight="589.0" prefWidth="586.0">
          <children>
-            <TableView fx:id="appointmentTableView" layoutX="128.0" prefHeight="589.0" prefWidth="284.0">
+            <TableView fx:id="appointmentTableView" layoutX="128.0" prefHeight="589.0" prefWidth="460.0">
                <columns>
-                  <TableColumn prefWidth="75.0" text="C1" />
-                  <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn fx:id="tcStart" prefWidth="131.0" text="Start" />
+                  <TableColumn fx:id="tcEnd" prefWidth="125.0" text="End" />
+                  <TableColumn fx:id="tcCustomer" prefWidth="203.0" text="Customer" />
                </columns>
             </TableView>
             <AnchorPane layoutX="6.0" layoutY="195.0" prefHeight="200.0" prefWidth="137.0">

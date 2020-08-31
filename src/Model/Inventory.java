@@ -2,18 +2,14 @@ package Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import utils.AddressSQL;
-import utils.CustomerSQL;
-import utils.DBConnection;
-import utils.DBQuery;
+import utils.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 public class Inventory {
     private static ObservableList<Customer> customers = FXCollections.observableArrayList();
@@ -22,6 +18,10 @@ public class Inventory {
 
     public static ObservableList getCustomers() {
         return customers;
+    }
+
+    public static ObservableList getAppointments() {
+        return appointments;
     }
 
     public static void clearCustomers() {
@@ -78,38 +78,57 @@ public class Inventory {
     //      Appointment section
 
     public static void fetchAppointmentsFromDB() {
+        System.out.println("fetchAppointmentsFromDB is running");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"); //S.D. used "kk" instead of 'HH'
         // From appointments
         appointments.clear();
         int appointmentId;
         int customerId;
         int userId;
-        LocalDateTime start;
-        LocalDateTime end;
+        String title = "";
+        //time stuff
+        LocalDateTime localStartTime;
+        LocalDateTime localEndTime;
         // From customers
         String customerName;
 
         String selectStatement =
                 "SELECT appointment.appointmentId, appointment.customerId, appointment.userId, " +
-                    "appointment.title, appointment.start, appointment.end, customer.customerName" +
-                "FROM appointment, customer" +
-                "WHERE appointment.customerId = customer.customerId ";
+                    "appointment.title, appointment.start, appointment.end, customer.customerName " +
+                "FROM appointment, customer " +
+                "WHERE appointment.customerId = customer.customerId; ";
+        //System.out.println("select statement is: " + selectStatement);
 
         try {
             Connection conn = DBConnection.startConnection();
+            DBQuery.setPreparedStatement(conn, selectStatement);
             PreparedStatement ps = DBQuery.getPreparedStatement();
 
             ps.execute();
 
             ResultSet rs = ps.getResultSet();
+
+
             // go through field in the DB, adding a new appointment to appointments
             while (rs.next()) {
                 appointmentId = rs.getInt("appointmentId");
                 customerId = rs.getInt("customerId");
                 userId = rs.getInt("userId");
-                java.sql.Timestamp ts = rs.getTimestamp("start");
-                Instant instant = ts.toInstant();
-                ZoneId z = ZoneId.of( "Globals.LOCALZONEID" ) ;
+                java.sql.Timestamp st = rs.getTimestamp("start");
+                java.sql.Timestamp et = rs.getTimestamp("end");
+                customerName = rs.getString("customerName");
+                System.out.println("@@@@@ customer name: " + customerName);
+
+                localStartTime = TimeMachine.utcToLocal(st);
+                localEndTime = TimeMachine.utcToLocal(et);
+
+                // make the objects
+                Appointment appointment = new Appointment(appointmentId, customerId, customerName, userId, title,
+                        localStartTime, localEndTime);
+                appointments.add(appointment);
+                System.out.println("appointments: " + appointments.toString());
             }
+            DBConnection.closeConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }

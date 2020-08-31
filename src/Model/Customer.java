@@ -29,7 +29,6 @@ public class Customer {
 
 
     public String getPhone() {
-        System.out.println("getting phone");
         return phone.get();
     }
 
