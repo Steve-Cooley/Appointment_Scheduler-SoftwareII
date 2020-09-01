@@ -18,22 +18,22 @@
       <AnchorPane prefHeight="677.0" prefWidth="1014.0">
          <children>
             <Label layoutX="57.0" layoutY="44.0" text="Add Appointment" />
-            <TableView fx:id="TVCustomers" layoutX="487.0" layoutY="96.0" prefHeight="200.0" prefWidth="465.0">
+            <TableView fx:id="tvCustomers" layoutX="487.0" layoutY="96.0" prefHeight="200.0" prefWidth="465.0">
+              <columns>
+                <TableColumn fx:id="tcCustomerName" prefWidth="228.0" text="Customer Name" />
+                <TableColumn fx:id="tcCustomerPhone" prefWidth="236.0" text="Phone" />
+              </columns>
+            </TableView>
+            <TableView fx:id="tvAppointments" layoutX="487.0" layoutY="354.0" prefHeight="200.0" prefWidth="465.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="C1" />
                 <TableColumn prefWidth="75.0" text="C2" />
               </columns>
             </TableView>
-            <TableView fx:id="TVAppointments" layoutX="487.0" layoutY="354.0" prefHeight="200.0" prefWidth="465.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-              </columns>
-            </TableView>
-            <Button fx:id="BtnAddCust" layoutX="824.0" layoutY="315.0" mnemonicParsing="false" text="Add" />
-            <Button fx:id="BtnDelCust" layoutX="824.0" layoutY="565.0" mnemonicParsing="false" text="Delete" />
-            <Button fx:id="BtnCancel" layoutX="921.0" layoutY="615.0" mnemonicParsing="false" onMouseClicked="#setBtnCancel" text="Cancel" />
-            <Button fx:id="BtnSave" layoutX="852.0" layoutY="615.0" mnemonicParsing="false" text="Save" />
+            <Button fx:id="btnAddCust" layoutX="824.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#setBtnAddCust" text="Select Customer" />
+            <Button fx:id="btnDelCust" layoutX="824.0" layoutY="565.0" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="btnCancel" layoutX="921.0" layoutY="615.0" mnemonicParsing="false" onMouseClicked="#setBtnCancel" text="Cancel" />
+            <Button fx:id="btnSave" layoutX="852.0" layoutY="615.0" mnemonicParsing="false" text="Save" />
             <GridPane layoutX="57.0" layoutY="148.0" prefHeight="382.0" prefWidth="406.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -50,16 +50,16 @@
                </rowConstraints>
                <children>
                   <Label text="Appointment ID" />
-                  <Label text="Customer ID" GridPane.rowIndex="1" />
+                  <Label text="Customer Name" GridPane.rowIndex="1" />
                   <Label text="userID" GridPane.rowIndex="2" />
-                  <Label text="Description" GridPane.rowIndex="3" />
-                  <TextField fx:id="FieldAppointment" GridPane.columnIndex="1" />
-                  <TextField fx:id="FieldCustID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="FieldUserID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextArea fx:id="TextAreaDescription" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <DatePicker fx:id="TextFieldDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Spinner fx:id="SpinnerHour" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Spinner fx:id="SpinnerMinute" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label text="Appointment Type" GridPane.rowIndex="3" />
+                  <TextField fx:id="fieldAppointment" disable="true" GridPane.columnIndex="1" />
+                  <TextField fx:id="fieldCustName" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="fieldUserID" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextArea fx:id="textAreaDescription" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <DatePicker fx:id="textFieldDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Spinner fx:id="spinnerHour" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Spinner fx:id="spinnerMinute" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Label text="Date" GridPane.rowIndex="4" />
                   <Label text="Hour" GridPane.rowIndex="5" />
                   <Label text="Minutes" GridPane.rowIndex="6" />
