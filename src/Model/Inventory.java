@@ -15,6 +15,7 @@ public class Inventory {
     private static ObservableList<Customer> customers = FXCollections.observableArrayList();
     private static ObservableList<User> users = FXCollections.observableArrayList();
     private static ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+    private static User activeUser;
 
     public static ObservableList getCustomers() {
         return customers;
@@ -132,6 +133,17 @@ public class Inventory {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setActiveUser(User user) {
+        System.out.println("setActiveUser is running");
+        activeUser = user;
+        System.out.println("the active user is: " + user.userName);
+    }
+
+    public static void removeActiveUser() {
+        activeUser = null;
+        System.out.println("logged out");
     }
 
 }

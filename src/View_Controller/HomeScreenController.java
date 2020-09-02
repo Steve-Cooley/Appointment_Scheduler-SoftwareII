@@ -59,6 +59,9 @@ public class HomeScreenController implements Initializable {
 
     public void logoutBtnPressed(MouseEvent mouseEvent) throws IOException {
         System.out.println("Logout button pressed.");
+        //The line below effectively logs the user out.
+        Inventory.removeActiveUser();
+        //return to login screen
         Parent HomeScreenParent = FXMLLoader.load(getClass().getResource("LoginScreen.fxml"));
         Scene scene = new Scene(HomeScreenParent);
 
