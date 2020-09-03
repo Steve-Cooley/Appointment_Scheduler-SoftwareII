@@ -33,9 +33,14 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Locale.setDefault(new Locale("es"));
+        Locale.setDefault(new Locale("es"));
         ResourceBundle rb = ResourceBundle.getBundle("View_Controller.Lang", Locale.getDefault());
         //System.out.println(rb.getString("test"));
+        LabelUsername.setText(rb.getString("username"));
+        LabelPassword.setText(rb.getString("password"));
+        LabelTitle.setText(rb.getString("title"));
+        BtnLogin.setText(rb.getString("loginButton"));
+        BtnExit.setText(rb.getString("exit"));
     }
 
     public void cheaterBtnPushed(MouseEvent mouseEvent)  throws IOException{

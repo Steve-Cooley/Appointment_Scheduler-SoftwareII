@@ -30,7 +30,7 @@
                 <TableColumn prefWidth="75.0" text="C2" />
               </columns>
             </TableView>
-            <Button fx:id="btnAddCust" layoutX="824.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#setBtnAddCust" text="Select Customer" />
+            <Button fx:id="btnAddCust" layoutX="824.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#setBtnSelectCustomer" text="Select Customer" />
             <Button fx:id="btnDelCust" layoutX="824.0" layoutY="565.0" mnemonicParsing="false" text="Delete" />
             <Button fx:id="btnCancel" layoutX="921.0" layoutY="615.0" mnemonicParsing="false" onMouseClicked="#setBtnCancel" text="Cancel" />
             <Button fx:id="btnSave" layoutX="852.0" layoutY="615.0" mnemonicParsing="false" text="Save" />
@@ -57,7 +57,7 @@
                   <TextField fx:id="fieldCustName" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="fieldUserID" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextArea fx:id="textAreaDescription" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <DatePicker fx:id="textFieldDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <DatePicker fx:id="textFieldDate" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Spinner fx:id="spinnerHour" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Spinner fx:id="spinnerMinute" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Label text="Date" GridPane.rowIndex="4" />
@@ -65,6 +65,7 @@
                   <Label text="Minutes" GridPane.rowIndex="6" />
                </children>
             </GridPane>
+            <Button fx:id="btnAddAppointment" layoutX="345.0" layoutY="554.0" mnemonicParsing="false" text="Add Appointment" />
          </children>
       </AnchorPane>
    </children>

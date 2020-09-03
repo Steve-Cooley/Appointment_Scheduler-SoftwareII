@@ -1,5 +1,6 @@
 package View_Controller;
 
+import Model.Appointment;
 import Model.Customer;
 import Model.Inventory;
 import javafx.fxml.FXML;
@@ -31,8 +32,9 @@ public class AppointmentAddController implements Initializable {
     @FXML public Button btnDelCust;
     @FXML public Button btnCancel;
     @FXML public Button btnSave;
-    public TableColumn tcCustomerName;
-    public TableColumn tcCustomerPhone;
+    public TableColumn<TableView<Appointment>, Appointment> tcCustomerName;
+    public TableColumn<TableView<Appointment>, Appointment> tcCustomerPhone;
+    public Button btnAddAppointment;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,14 +56,20 @@ public class AppointmentAddController implements Initializable {
         stage.show();
     }
 
-    public void setBtnAddCust(MouseEvent e) {
-        System.out.println("Add button pressed");
-
+    public void setBtnSelectCustomer(MouseEvent e) {
         // select customer from tableView
         Customer customer = tvCustomers.getSelectionModel().getSelectedItem();
         //populate relevant fields
         fieldCustName.setText(customer.getName());
+    }
+
+    public void setBtnAddAppointment(MouseEvent e) {
+        String appointmentType = textAreaDescription.getText();
 
     }
+
+//    public void validateAppointmentData() { todo: maybe this goes here, maybe it doesn't
+//
+//    }
 
 }
