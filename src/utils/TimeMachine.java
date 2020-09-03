@@ -1,5 +1,7 @@
 package utils;
 
+import javafx.util.converter.TimeStringConverter;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -13,11 +15,12 @@ public class TimeMachine {
      *
      * It might make sense to change the output to a String.  That would involve uncommenting two lines below, changing
      * the output type, then reworking code in the Model.  fixme wait till later to see if this makes sense
-     * @param inUTC Timestamp in UTC
+     * @param timestampInUTC Timestamp in UTC
      * @return LocalDateTime in system default time zone
      */
-    public static LocalDateTime utcToLocal(Timestamp inUTC) {
-        LocalDateTime stepZero = inUTC.toLocalDateTime();
+    public static LocalDateTime utcToLocal(Timestamp timestampInUTC) {
+        //algorithm: TS > LDT(UTC) > ZDT(UTC) > ZDT(sysDefault) > LDT(sysDefault)
+        LocalDateTime stepZero = timestampInUTC.toLocalDateTime();
         ZonedDateTime stepOne = ZonedDateTime.of(stepZero, ZoneId.of("UTC"));
         ZonedDateTime stepTwo = stepOne.withZoneSameInstant(ZoneOffset.systemDefault());
         // DateTimeFormatter outputs a string.  I may have to use this later.
@@ -27,6 +30,13 @@ public class TimeMachine {
         return outp;
     }
 
-    // Convert Local To UTC before upload to DB.  todo will implement when needed.
 
+    public static Timestamp ldtToTimestamp(LocalDateTime ldt) {
+        //algorithm: LDT(sysDefault) > ZDT(sysDefault) > ZDT(UTC) > LDT(UTC) > TS(UTC)
+        ZonedDateTime stepOne = ldt.atZone(ZoneId.systemDefault());
+        ZonedDateTime stepTwo = stepOne.withZoneSameInstant(ZoneId.of("UTC"));
+        LocalDateTime stepThree = stepTwo.toLocalDateTime();
+        Timestamp outp = Timestamp.valueOf(stepThree);
+        return outp;
+    }
 }

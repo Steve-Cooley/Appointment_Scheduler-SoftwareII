@@ -80,7 +80,7 @@ public class Inventory {
 
     public static void fetchAppointmentsFromDB() {
         System.out.println("fetchAppointmentsFromDB is running");
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"); //S.D. used "kk" instead of 'HH'
+        //DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"); //S.D. used "kk" instead of 'HH'
         // From appointments
         appointments.clear();
         int appointmentId;
@@ -118,7 +118,7 @@ public class Inventory {
                 java.sql.Timestamp st = rs.getTimestamp("start");
                 java.sql.Timestamp et = rs.getTimestamp("end");
                 customerName = rs.getString("customerName");
-                System.out.println("@@@@@ customer name: " + customerName);
+                //System.out.println("@@@@@ customer name: " + customerName);
 
                 localStartTime = TimeMachine.utcToLocal(st);
                 localEndTime = TimeMachine.utcToLocal(et);
@@ -127,7 +127,7 @@ public class Inventory {
                 Appointment appointment = new Appointment(appointmentId, customerId, customerName, userId, title,
                         localStartTime, localEndTime);
                 appointments.add(appointment);
-                System.out.println("appointments: " + appointments.toString());
+                //System.out.println("appointments: " + appointments.toString());
             }
             DBConnection.closeConnection();
         } catch (Exception e) {
