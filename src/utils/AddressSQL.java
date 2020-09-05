@@ -1,9 +1,6 @@
 package utils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 
 public class AddressSQL {
@@ -15,8 +12,8 @@ public class AddressSQL {
 
         Connection conn = DBConnection.startConnection();
         try {
-            DBQuery.setPreparedStatement(conn, selectStatment);
-            PreparedStatement ps = DBQuery.getPreparedStatement();
+            //DBQuery.setPreparedStatement(conn, selectStatment);
+            PreparedStatement ps = conn.prepareStatement(selectStatment);
             ps.setInt(1, id);
             ps.execute();
             ResultSet rs = ps.getResultSet();
@@ -30,69 +27,15 @@ public class AddressSQL {
         return phone;
     }
 
-    // Deprecate?  fixme
-    public static String getAddressString(int id) {
-        System.out.println("DBQuery.getAddress is running");
-        String addr = "Address was not retrieved";  // Initialized to informative string
-        String selectStatement = "SELECT address FROM address WHERE addressId = ?";
-
-
-        Connection conn = DBConnection.startConnection();
-        try {
-            DBQuery.setPreparedStatement(conn, selectStatement);
-            PreparedStatement ps = DBQuery.getPreparedStatement();
-            ps.setInt(1, id);
-            System.out.println(ps.toString());
-            ps.execute();
-            ResultSet rs = ps.getResultSet();
-
-            if (rs.next()) {
-                addr = rs.getString("address");
-            }
-
-            DBConnection.closeConnection();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(addr);
-        return addr;
-    }
-
-    // delete?  fixme
-    public static int getAddressID(String addr, int addrId, Connection conn) {
-        System.out.println("getAddressID is running");
-        try {
-            String selectS = "SELECT addressId FROM address WHERE address = ?";
-            DBQuery.setPreparedStatement(conn, selectS);
-            PreparedStatement ps = DBQuery.getPreparedStatement();
-
-            ps.setString(1, addr);
-
-            ps.execute();
-
-            ResultSet rs = ps.getResultSet();
-            if(rs.next()){
-                addrId = rs.getInt("addressId");
-                System.out.println("The address ID is: " + addrId);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return addrId;  //fixme
-    }
-
-    public static int insertAddressAndReturnID(String addr, String phone, Connection conn) {
+    public static int insertAddressAndReturnID(String addr, String phone) {
         int lastInsertedId = -1;
         try {
             String insertAddr = "Insert INTO address(address, phone, address2, cityId, postalCode, createDate," +
                     " createdBy, lastUpdate, lastUpdateBy) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
-            DBQuery.setPreparedStatement(conn, insertAddr);
-            PreparedStatement ps = DBQuery.getPreparedStatement();
+//            DBQuery.setPreparedStatement(conn, insertAddr);
+//            PreparedStatement ps = DBQuery.getPreparedStatement();
+            Connection conn = DBConnection.startConnection();
+            PreparedStatement ps = conn.prepareStatement(insertAddr, Statement.RETURN_GENERATED_KEYS);
 
             //Normal fields
             ps.setString(1, addr);
@@ -115,8 +58,14 @@ public class AddressSQL {
                 lastInsertedId = rs.getInt(1);
                 System.out.println("***Is this the address key? " + lastInsertedId);
             }
+
+            DBConnection.closeConnection();
         } catch(SQLException e) {
             System.out.println("SQLException, save button, insert addr");
+            e.printStackTrace();
+        } catch(ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch(Exception e) {
             e.printStackTrace();
         }
         return lastInsertedId;

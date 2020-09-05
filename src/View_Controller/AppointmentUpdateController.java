@@ -21,15 +21,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AppointmentUpdateController implements Initializable {
-    @FXML public TableView<Customer> tvCustomers;
     @FXML public TableColumn<TableView<Appointment>, Appointment> tcCustomerName;
     @FXML public TableColumn<TableView<Appointment>, Appointment> tcCustomerPhone;
     @FXML public Button BtnAddCust;
     @FXML public Button BtnDelCust;
     @FXML public Button BtnCancel;
     @FXML public Button BtnSave;
-    @FXML public TableView TVAppointments;
-    @FXML public TableView TVCustomers;
+    @FXML public TableView tvAppointments;
+    @FXML public TableView tvCustomers;   /// fixme
     @FXML public TextField FieldAppointment;
     @FXML public TextField FieldCustID;
     @FXML public TextField FieldUserID;
@@ -47,9 +46,9 @@ public class AppointmentUpdateController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        // fill screen with data
-//        tvCustomers.setItems(Inventory.getCustomers());
-//        tcCustomerName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        tcCustomerPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        tvCustomers.setItems(Inventory.getCustomers());
+        tcCustomerName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tcCustomerPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
         //populate combo boxes
         hours.add("08");

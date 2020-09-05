@@ -197,4 +197,8 @@ public class Appointment {
     public void setCustomerName(String customerName) {
         this.customerName.set(customerName);
     }
+
+    public String getStartTime() {
+        return start.toLocalTime().toString();
+    }
 }

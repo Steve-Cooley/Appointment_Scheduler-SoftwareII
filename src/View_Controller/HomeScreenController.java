@@ -46,14 +46,15 @@ public class HomeScreenController implements Initializable {
         Inventory.fetchCustomersFromDB();
         customerTableView.setItems(Inventory.getCustomers());
         tcCustId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tcCustName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tcCustName.setCellValueFactory(new PropertyValueFactory<>("name")); //
         tcCustAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         tcCustPhone.setCellValueFactory(new PropertyValueFactory<>("phone")); //fixme doesn't work
 
         // populate Calendar/Appointment table todo
+        Inventory.fetchAppointmentsFromDB();
         appointmentTableView.setItems(Inventory.getAppointments());
         tcCustomer.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-        tcStart.setCellValueFactory(new PropertyValueFactory<>("start"));
+        tcStart.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         tcEnd.setCellValueFactory(new PropertyValueFactory<>("end"));
     }
 

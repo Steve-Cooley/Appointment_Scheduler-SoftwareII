@@ -44,18 +44,18 @@ public class CustomerAddController implements Initializable {
         int addrId = 0;  // initialized to avoid "possibly not be initialized" error
 
         ///////////////// SQL related statements below
-        Connection conn = DBConnection.startConnection();
+        //Connection conn = DBConnection.startConnection();
 
         // insert address
-        addrId = AddressSQL.insertAddressAndReturnID(addr, phone, conn);
+        addrId = AddressSQL.insertAddressAndReturnID(addr, phone);
 
         // get address ID (select statement)  fixme if insertAddress returned an id, this might not be necessary
         //addrId = DBQuery.getAddressID(addr, addrId, conn);
 
         // insert customer
-        CustomerSQL.insertCustomer(name, addrId, conn);
+        CustomerSQL.insertCustomer(name, addrId);
 
-        DBConnection.closeConnection();
+        //DBConnection.closeConnection();
 
         //switch back to home screen
         Parent parent = FXMLLoader.load(getClass().getResource("HomeScreenController.fxml"));

@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import utils.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
@@ -47,8 +44,9 @@ public class Inventory {
                 " WHERE customer.addressId = address.addressId;";
 
         try {
-            DBQuery.setPreparedStatement(conn, selectStatement);
-            PreparedStatement ps = DBQuery.getPreparedStatement();
+//            DBQuery.setPreparedStatement(conn, selectStatement);
+//            PreparedStatement ps = DBQuery.getPreparedStatement();
+            PreparedStatement ps = conn.prepareStatement(selectStatement);
 
             ps.execute();
 
@@ -78,6 +76,45 @@ public class Inventory {
 
     //      Appointment section
 
+    public static void insertAppointmentsToDB(int customerId, int userId, String typeOfAppointment, Timestamp start,
+                                              Timestamp end) {
+        System.out.println("Insert appointments to db is running");
+        String sqlInsert =
+                "INSERT INTO appointment" +
+                        "(customerId, userId, title, description, location, contact, type, url, start, end, " +
+                        "createDate, createdBy, lastUpdate, lastUpdateBy) " +
+                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        System.out.println(sqlInsert);
+        try {
+            Connection conn = DBConnection.startConnection();
+            //DBQuery.setPreparedStatement(conn, sqlInsert);
+            //PreparedStatement ps = DBQuery.getPreparedStatement();
+            PreparedStatement ps = conn.prepareStatement(sqlInsert);
+
+            ps.setInt(1, customerId);
+            ps.setInt(2, userId);
+            ps.setString(3, typeOfAppointment);  // Using title as "type of appointment" (should meet reqs)  ***
+            ps.setString(4, typeOfAppointment); //description
+            ps.setString(5, typeOfAppointment); //location
+            ps.setString(6, typeOfAppointment); //contact
+            ps.setString(7, typeOfAppointment); //type
+            ps.setString(8, typeOfAppointment); //url
+            ps.setTimestamp(9, start);          //start  ***
+            ps.setTimestamp(10, end);           //end    ***
+            ps.setTimestamp(11, start);         //createdate
+            ps.setString(12, "");         //createBy
+            ps.setTimestamp(13, start);
+            ps.setString(14,"");
+
+            ps.execute();
+
+            DBConnection.closeConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static void fetchAppointmentsFromDB() {
         System.out.println("fetchAppointmentsFromDB is running");
         //DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"); //S.D. used "kk" instead of 'HH'
@@ -102,8 +139,7 @@ public class Inventory {
 
         try {
             Connection conn = DBConnection.startConnection();
-            DBQuery.setPreparedStatement(conn, selectStatement);
-            PreparedStatement ps = DBQuery.getPreparedStatement();
+            PreparedStatement ps = conn.prepareStatement(selectStatement);
 
             ps.execute();
 
@@ -118,6 +154,7 @@ public class Inventory {
                 java.sql.Timestamp st = rs.getTimestamp("start");
                 java.sql.Timestamp et = rs.getTimestamp("end");
                 customerName = rs.getString("customerName");
+                //todo appointment type
                 //System.out.println("@@@@@ customer name: " + customerName);
 
                 localStartTime = TimeMachine.utcToLocal(st);
@@ -129,6 +166,7 @@ public class Inventory {
                 appointments.add(appointment);
                 //System.out.println("appointments: " + appointments.toString());
             }
+
             DBConnection.closeConnection();
         } catch (Exception e) {
             e.printStackTrace();

@@ -45,6 +45,7 @@ public class AppointmentAddController implements Initializable {
     @FXML public ComboBox<String> comboHour;
     @FXML public ComboBox<String> comboMinute;
 
+    private Customer customer;
     private static ObservableList<String > hours = FXCollections.observableArrayList() ;
     private static ObservableList<String > minutes = FXCollections.observableArrayList();
 
@@ -67,6 +68,7 @@ public class AppointmentAddController implements Initializable {
         minutes.add("45");
         comboHour.setItems(hours);
         comboMinute.setItems(minutes);
+
     }
 
     public void setBtnCancel(MouseEvent m) throws IOException {
@@ -83,7 +85,7 @@ public class AppointmentAddController implements Initializable {
 
     public void setBtnSelectCustomer(MouseEvent e) {
         // select customer from tableView
-        Customer customer = tvCustomers.getSelectionModel().getSelectedItem();
+        customer = tvCustomers.getSelectionModel().getSelectedItem();
         //populate relevant fields
         fieldCustName.setText(customer.getName());
     }
@@ -97,13 +99,18 @@ public class AppointmentAddController implements Initializable {
         LocalDate date = datepicker.getValue();
         System.out.println("date: " + date);
         String ldt =  date + " " + hour + ":" + minute;
+        int customerId = customer.getId();
         // 2020-09-040800 to 2016-03-04 11:30
         System.out.println(ldt);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm");
         LocalDateTime localDateTime = LocalDateTime.parse(ldt, formatter);
         System.out.println(localDateTime);
-        Timestamp ts = TimeMachine.ldtToTimestamp(localDateTime);
-        System.out.println("Timestamp: " + ts);
+        Timestamp start = TimeMachine.ldtToTimestamp(localDateTime);
+        Timestamp end = TimeMachine.ldtToTimestamp(localDateTime);    // fixme should be after start
+        System.out.println("Timestamp: " + start);
+
+        Inventory.insertAppointmentsToDB(customerId, 1, appointmentType, start, end);
+
     }
 
 }

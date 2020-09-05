@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import utils.DBQuery;
+//import utils.DBQuery;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -34,9 +34,6 @@ public class Main extends Application {
      */
     public static void main(String[] args) throws Exception {
 
-
-
-
         //  The 4 following call basic sql actions found here in this class for testing purposes
         //sqlInsert();
         //sqlUpdate();
@@ -50,127 +47,40 @@ public class Main extends Application {
         //Inventory.addCustomer();
 
         //testing fetchAppointmentsFromDb with emphasis on timezone stuff.
-        Inventory.fetchAppointmentsFromDB();
-
+        //Inventory.fetchAppointmentsFromDB();
 
         launch(args);  // Launch GUI.
     }
 
-    private static void sqlSelect() throws Exception {
-        System.out.println("sqlSelect is running"); //todo remove
-        Connection conn = DBConnection.startConnection();  //connect to database
-        String selectStatement = "SELECT * FROM country";
+    //    public static void sqlInsert() throws Exception {
+//        System.out.println("sqlInsert is running");
+//
+//        Connection conn = DBConnection.startConnection();  //connect to database
+//        String insertStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy) VALUES(?,?,?,?)";
+//
+//        DBQuery.setPreparedStatement(conn, insertStatement); // create prepared statement
+//        PreparedStatement ps = DBQuery.getPreparedStatement();
+//
+//        String country = "Canada";
+//        String createDate = LocalDateTime.now().toString();  //Warning this saves in local time!
+//        String createdBy = "Steve";
+//        String lastUpdateBy = "Steve";
+//
+//        ps.setString(1, country);
+//        ps.setString(2, createDate);
+//        ps.setString(3, createdBy);
+//        ps.setString(4, lastUpdateBy);
+//
+//        ps.execute();
+//
+//        //check how many rows were effected:
+//        if (ps.getUpdateCount() > 0) {
+//            System.out.println(ps.getUpdateCount() + " rows affected");
+//        } else {
+//            System.out.println("No change!");
+//        }
+//
+//        DBConnection.closeConnection();
+//    }
 
-        DBQuery.setPreparedStatement(conn, selectStatement);
-        PreparedStatement ps = DBQuery.getPreparedStatement();
-
-        ps.execute();  // Execute prepared statement
-
-        ResultSet rs = ps.getResultSet();
-
-        // Forward scroll ResultSet
-        while (rs.next()) {
-            int countryId = rs.getInt("countryId");
-            String countryName = rs.getString("country");
-            LocalDate date = rs.getDate("createDate").toLocalDate();  //"Date" is old and possibly deprecated.  Using LocalDate instead.
-            LocalTime time = rs.getTime("createDate").toLocalTime();
-            String createdBy = rs.getString("createdBy");
-            LocalDateTime lastUpdate = rs.getTimestamp("lastUpdate").toLocalDateTime();
-            // Malcom says "you don't have to retrieve every column in a result set."  So omitting one column here.
-
-            //display record
-            System.out.println(countryId +
-                    " | " + countryName +
-                    " | " + date +
-                    " | " + time +
-                    " | " + createdBy +
-                    " | " + lastUpdate);
-        }
-        DBConnection.closeConnection();
-
-    }
-
-    public static void sqlInsert() throws Exception {
-        System.out.println("sqlInsert is running");
-
-        Connection conn = DBConnection.startConnection();  //connect to database
-        String insertStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy) VALUES(?,?,?,?)";
-
-        DBQuery.setPreparedStatement(conn, insertStatement); // create prepared statement
-        PreparedStatement ps = DBQuery.getPreparedStatement();
-
-        String country = "Canada";
-        String createDate = LocalDateTime.now().toString();  //Warning this saves in local time!
-        String createdBy = "Steve";
-        String lastUpdateBy = "Steve";
-
-        ps.setString(1, country);
-        ps.setString(2, createDate);
-        ps.setString(3, createdBy);
-        ps.setString(4, lastUpdateBy);
-
-        ps.execute();
-
-        //check how many rows were effected:
-        if (ps.getUpdateCount() > 0) {
-            System.out.println(ps.getUpdateCount() + " rows affected");
-        } else {
-            System.out.println("No change!");
-        }
-
-        DBConnection.closeConnection();
-    }
-
-    public static void sqlUpdate() throws Exception {
-        System.out.println("sqlUpdate is running");
-
-        Connection conn = DBConnection.startConnection();
-        String updateStatement = "UPDATE country SET country = ?, createdBy = ? WHERE country = ?";
-
-        DBQuery.setPreparedStatement(conn, updateStatement);
-        PreparedStatement ps = DBQuery.getPreparedStatement();
-
-        String countryName = "'Canada'";
-        String newCountryName = "Canada";
-        String createdBy = "Steve";
-
-        ps.setString(1, newCountryName);
-        ps.setString(2, createdBy);
-        ps.setString(3, countryName);
-
-
-        ps.execute();
-
-        if (ps.getUpdateCount() > 0) {
-            System.out.println(ps.getUpdateCount() + " rows affected");
-        } else {
-            System.out.println("No change!");
-        }
-
-        DBConnection.closeConnection();
-    }
-
-    public static void sqlDelete() throws Exception {
-        System.out.println("sqlDelete is running");
-
-        Connection conn = DBConnection.startConnection();
-
-        String delStatement = "DELETE FROM country WHERE country = ?";
-
-        DBQuery.setPreparedStatement(conn, delStatement);
-        PreparedStatement ps = DBQuery.getPreparedStatement();
-
-        ps.setString(1, "Canada");
-
-        ps.execute();
-
-        if (ps.getUpdateCount() > 0) {
-            System.out.println(ps.getUpdateCount() + " rows affected");
-        } else {
-            System.out.println("No change!");
-        }
-
-        DBConnection.closeConnection();
-
-    }
 }
