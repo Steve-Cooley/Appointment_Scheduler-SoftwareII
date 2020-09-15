@@ -1,4 +1,4 @@
-package View_Controller;
+package View_Controller.Customer;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,11 +12,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import utils.AddressSQL;
 import utils.CustomerSQL;
-import utils.DBConnection;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.util.ResourceBundle;
 
 public class CustomerAddController implements Initializable {
@@ -58,7 +56,7 @@ public class CustomerAddController implements Initializable {
         //DBConnection.closeConnection();
 
         //switch back to home screen
-        Parent parent = FXMLLoader.load(getClass().getResource("HomeScreenController.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("../Home/HomeScreenController.fxml"));
         Scene scene = new Scene(parent);
         Stage window = (Stage)((Node) m.getSource()).getScene().getWindow();
         window.setScene(scene);
@@ -69,7 +67,7 @@ public class CustomerAddController implements Initializable {
     public void setBtnCancel(MouseEvent m) throws IOException {
         System.out.println("Cancel Button Pressed");
 
-        Parent parent = FXMLLoader.load(getClass().getResource("HomeScreenController.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("../Home/HomeScreenController.fxml"));
         Scene scene = new Scene(parent);
 
         //Set stage info

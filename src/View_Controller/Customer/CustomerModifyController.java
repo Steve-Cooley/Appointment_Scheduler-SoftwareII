@@ -1,4 +1,4 @@
-package View_Controller;
+package View_Controller.Customer;
 
 import Model.Customer;
 import javafx.fxml.FXML;
@@ -48,7 +48,7 @@ public class CustomerModifyController implements Initializable {
         CustomerSQL.updateCustomer(customer, newName, newAddress, newPhone);
 
         // open up main screen
-        Parent parent = FXMLLoader.load(getClass().getResource("HomeScreenController.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("../Home/HomeScreenController.fxml"));
         Scene scene = new Scene(parent);
 
         //Set stage info
@@ -63,7 +63,7 @@ public class CustomerModifyController implements Initializable {
     public void setBtnCancel(MouseEvent m) throws IOException {
         System.out.println("Cancel Button Pressed");
 
-        Parent parent = FXMLLoader.load(getClass().getResource("HomeScreenController.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("../Home/HomeScreenController.fxml"));
         Scene scene = new Scene(parent);
 
         //Set stage info

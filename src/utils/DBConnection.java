@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 //Mostly inspired by Sherilyn Decusatis'  DAODemo
 //I'm not really sure why the URL has to be divided into different strings, but both instructors I've paid attention
-// to on this topic did so.
+// to on this topic did so (in different ways)
 
 public class DBConnection {
     // parts  (Why are we supposed to separate these components?)

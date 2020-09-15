@@ -2,7 +2,6 @@ package View_Controller;
 
 import Model.Inventory;
 import Model.User;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -30,11 +29,12 @@ public class LoginController implements Initializable {
     public Label LabelUsername;
     public Label LabelPassword;
     public Label LabelTitle;
+    private ResourceBundle rb;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Locale.setDefault(new Locale("es"));
-        ResourceBundle rb = ResourceBundle.getBundle("View_Controller.Lang", Locale.getDefault());
+        rb = ResourceBundle.getBundle("View_Controller.Lang", Locale.getDefault());
         //System.out.println(rb.getString("test"));
         LabelUsername.setText(rb.getString("username"));
         LabelPassword.setText(rb.getString("password"));
@@ -45,7 +45,7 @@ public class LoginController implements Initializable {
 
     public void cheaterBtnPushed(MouseEvent mouseEvent)  throws IOException{
         System.out.println("Cheater button pushed.");
-        Parent HomeScreenParent = FXMLLoader.load(getClass().getResource("HomeScreenController.fxml"));
+        Parent HomeScreenParent = FXMLLoader.load(getClass().getResource("Home/HomeScreenController.fxml"));
         Scene mainScreen = new Scene(HomeScreenParent);
 
         //Set stage info
@@ -66,7 +66,7 @@ public class LoginController implements Initializable {
             System.out.println("Credentials accepted!");
             User user = new User(userName, password);
             Inventory.setActiveUser(user);
-            Parent HomeScreenParent = FXMLLoader.load(getClass().getResource("HomeScreenController.fxml"));
+            Parent HomeScreenParent = FXMLLoader.load(getClass().getResource("Home/HomeScreenController.fxml"));
             Scene mainScreen = new Scene(HomeScreenParent);
 
             //Set stage info
@@ -77,8 +77,8 @@ public class LoginController implements Initializable {
         } else {
             System.out.println("credentials not accepted!");
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Login Error");
-            alert.setContentText("Invalid Login attempt");
+            alert.setTitle(rb.getString("alertTitle"));
+            alert.setContentText(rb.getString("alertContent"));
             alert.showAndWait();
         }
     }

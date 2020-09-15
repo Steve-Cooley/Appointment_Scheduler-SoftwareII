@@ -68,14 +68,11 @@ public class CustomerSQL {
 
         //new values
 
-
         String cStatement = "UPDATE customer SET customerName = ? WHERE customerId = ?; ";
         String aStatement = "UPDATE address SET address = ?, phone = ? WHERE addressId = ?;";
 
         try {
             Connection conn = DBConnection.startConnection();
-//            DBQuery.setPreparedStatement(conn, cStatement);
-//            PreparedStatement ps = DBQuery.getPreparedStatement();
             PreparedStatement ps = conn.prepareStatement(cStatement);
             ps.setString(1, newName);
             ps.setInt(2, customerId);

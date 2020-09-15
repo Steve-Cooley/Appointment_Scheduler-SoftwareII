@@ -13,27 +13,21 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="677.0" prefWidth="1014.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.AppointmentUpdateController">
+<AnchorPane prefHeight="677.0" prefWidth="1014.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.Appointment.AppointmentUpdateController">
    <children>
       <AnchorPane layoutX="3.0" layoutY="3.0" prefHeight="677.0" prefWidth="1014.0">
          <children>
             <Label layoutX="57.0" layoutY="44.0" text="Update Appointment" />
-            <TableView fx:id="tvCustomers" layoutX="487.0" layoutY="96.0" prefHeight="200.0" prefWidth="465.0">
-               <columns>
-                  <TableColumn prefWidth="75.0" text="C1" />
-                  <TableColumn prefWidth="75.0" text="C2" />
-               </columns>
-            </TableView>
             <TableView fx:id="tvAppointments" layoutX="487.0" layoutY="354.0" prefHeight="200.0" prefWidth="465.0">
                <columns>
                   <TableColumn prefWidth="75.0" text="C1" />
                   <TableColumn prefWidth="75.0" text="C2" />
                </columns>
             </TableView>
-            <Button fx:id="BtnAddCust" layoutX="824.0" layoutY="315.0" mnemonicParsing="false" text="Add" />
+            <Button fx:id="BtnAddCust" layoutX="824.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#addCustomerPressed" text="Add" />
             <Button fx:id="BtnDelCust" layoutX="824.0" layoutY="565.0" mnemonicParsing="false" text="Delete" />
-            <Button fx:id="BtnCancel" layoutX="921.0" layoutY="615.0" mnemonicParsing="false" text="Cancel" />
-            <Button fx:id="BtnSave" layoutX="852.0" layoutY="615.0" mnemonicParsing="false" text="Save" />
+            <Button fx:id="BtnCancel" layoutX="921.0" layoutY="615.0" mnemonicParsing="false" onMouseClicked="#setBtnCancel" text="Cancel" />
+            <Button fx:id="BtnSave" layoutX="852.0" layoutY="615.0" mnemonicParsing="false" onMouseClicked="#setBtnSave" text="Save" />
             <GridPane layoutX="57.0" layoutY="148.0" prefHeight="382.0" prefWidth="406.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -50,14 +44,14 @@
                </rowConstraints>
                <children>
                   <Label text="Appointment ID" />
-                  <Label text="Customer ID" GridPane.rowIndex="1" />
+                  <Label text="Customer Name" GridPane.rowIndex="1" />
                   <Label text="userID" GridPane.rowIndex="2" />
                   <Label text="Description" GridPane.rowIndex="3" />
-                  <TextField fx:id="FieldAppointment" GridPane.columnIndex="1" />
-                  <TextField fx:id="FieldCustID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="FieldUserID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="FieldAppointment" disable="true" GridPane.columnIndex="1" />
+                  <TextField fx:id="fieldCustName" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="FieldUserID" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextArea fx:id="TextAreaDescription" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <DatePicker fx:id="datepicker" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <DatePicker fx:id="datepicker" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label text="Date" GridPane.rowIndex="4" />
                   <Label text="Hour" GridPane.rowIndex="5" />
                   <Label text="Minutes" GridPane.rowIndex="6" />
@@ -67,5 +61,11 @@
             </GridPane>
          </children>
       </AnchorPane>
+      <TableView fx:id="tvCustomers" layoutX="497.0" layoutY="106.0" prefHeight="200.0" prefWidth="465.0">
+         <columns>
+            <TableColumn fx:id="tcCustomerName" prefWidth="228.0" text="Customer Name" />
+            <TableColumn fx:id="tcCustomerPhone" prefWidth="236.0" text="Phone" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>

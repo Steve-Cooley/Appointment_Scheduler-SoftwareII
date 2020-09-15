@@ -6,7 +6,6 @@ import utils.*;
 
 import java.sql.*;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 
 public class Inventory {
     private static ObservableList<Customer> customers = FXCollections.observableArrayList();
@@ -14,12 +13,38 @@ public class Inventory {
     private static ObservableList<Appointment> appointments = FXCollections.observableArrayList();
     private static User activeUser;
 
-    public static ObservableList getCustomers() {
-        return customers;
+    public static boolean isTimeSlotAlreadyTaken(LocalDateTime potential) {
+        //*** Requirement G
+        //This use of lambdas is much more compact (and allegedly faster) than the multiline version below.
+        return appointments.stream().map(appointment -> appointment.getStart()).anyMatch(o -> potential.equals(o));
+        // original version of this code:
+/*        for (Appointment appointment : appointments) {
+            LocalDateTime existing = appointment.getStart();
+            if (potential.equals(existing)) {
+                return true;
+            }
+        }
+        return false;*/
     }
 
-    public static ObservableList getAppointments() {
-        return appointments;
+
+
+    //This method for use in AppointmentUpdateController is a variation on the above isTimeSlotAlreadyTaken
+    //checks for scheduling conflicts, but ignores them if they have the same appointmentId (An appointment
+    //can't conflict with itself)
+    public static boolean isTimeSlotAlreadyTakenByOther(LocalDateTime potential, Appointment currentAppointment) {
+        int currentID = currentAppointment.getAppointmentID();
+        for (Appointment appointment : appointments) {
+            LocalDateTime existing = appointment.getStart();
+            if (potential.equals(existing) && (currentID != appointment.getAppointmentID())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static ObservableList<Customer> getCustomers() {
+        return customers;
     }
 
     public static void clearCustomers() {
@@ -27,6 +52,8 @@ public class Inventory {
     }
 
     //      Customer section
+
+
     // fetch all customers (from DB)
     public static void fetchCustomersFromDB() {
         clearCustomers();  //fixme this could be replaced by customers.clear() and method deleted.  Just don't want to play with it now, cuz it'll need to be tested.
@@ -74,45 +101,22 @@ public class Inventory {
         customers.remove(customer);
     }
 
+    public static Customer getCustomerById(int id) {
+        //**** Requirement G
+        // this method uses a lambda expression to find a Customer.  This is justified for two reasons:
+        // 1.  Lambda expressions are more compact
+        // 2.  Lambda expressions are much faster at this sort of work (as far as I understand)
+        return customers.stream().filter(customer -> customer.getId() == id).findFirst().orElse(null);
+    }
+
     //      Appointment section
 
-    public static void insertAppointmentsToDB(int customerId, int userId, String typeOfAppointment, Timestamp start,
-                                              Timestamp end) {
-        System.out.println("Insert appointments to db is running");
-        String sqlInsert =
-                "INSERT INTO appointment" +
-                        "(customerId, userId, title, description, location, contact, type, url, start, end, " +
-                        "createDate, createdBy, lastUpdate, lastUpdateBy) " +
-                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        System.out.println(sqlInsert);
-        try {
-            Connection conn = DBConnection.startConnection();
-            //DBQuery.setPreparedStatement(conn, sqlInsert);
-            //PreparedStatement ps = DBQuery.getPreparedStatement();
-            PreparedStatement ps = conn.prepareStatement(sqlInsert);
+    public static void delAppointmentFromList(Appointment appointment){
+        appointments.remove(appointment);
+    }
 
-            ps.setInt(1, customerId);
-            ps.setInt(2, userId);
-            ps.setString(3, typeOfAppointment);  // Using title as "type of appointment" (should meet reqs)  ***
-            ps.setString(4, typeOfAppointment); //description
-            ps.setString(5, typeOfAppointment); //location
-            ps.setString(6, typeOfAppointment); //contact
-            ps.setString(7, typeOfAppointment); //type
-            ps.setString(8, typeOfAppointment); //url
-            ps.setTimestamp(9, start);          //start  ***
-            ps.setTimestamp(10, end);           //end    ***
-            ps.setTimestamp(11, start);         //createdate
-            ps.setString(12, "");         //createBy
-            ps.setTimestamp(13, start);
-            ps.setString(14,"");
-
-            ps.execute();
-
-            DBConnection.closeConnection();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    public static ObservableList<Appointment> getAppointments() {
+        return appointments;
     }
 
     public static void fetchAppointmentsFromDB() {
@@ -154,6 +158,7 @@ public class Inventory {
                 java.sql.Timestamp st = rs.getTimestamp("start");
                 java.sql.Timestamp et = rs.getTimestamp("end");
                 customerName = rs.getString("customerName");
+                title = rs.getString("title");
                 //todo appointment type
                 //System.out.println("@@@@@ customer name: " + customerName);
 
@@ -172,6 +177,14 @@ public class Inventory {
             e.printStackTrace();
         }
     }
+
+    public static void removeAppointment(Appointment appointment) {
+
+    }
+
+
+    // user section
+
 
     public static void setActiveUser(User user) {
         System.out.println("setActiveUser is running");

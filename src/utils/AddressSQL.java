@@ -63,8 +63,6 @@ public class AddressSQL {
         } catch(SQLException e) {
             System.out.println("SQLException, save button, insert addr");
             e.printStackTrace();
-        } catch(ClassNotFoundException e) {
-            e.printStackTrace();
         } catch(Exception e) {
             e.printStackTrace();
         }

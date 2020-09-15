@@ -27,11 +27,6 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    /*
-     *   It is odd that there are basically 2 exception methods here (one handled in DBConnection),
-     *   but this meets part of requirement F
-     *
-     */
     public static void main(String[] args) throws Exception {
 
         //  The 4 following call basic sql actions found here in this class for testing purposes
@@ -51,36 +46,5 @@ public class Main extends Application {
 
         launch(args);  // Launch GUI.
     }
-
-    //    public static void sqlInsert() throws Exception {
-//        System.out.println("sqlInsert is running");
-//
-//        Connection conn = DBConnection.startConnection();  //connect to database
-//        String insertStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy) VALUES(?,?,?,?)";
-//
-//        DBQuery.setPreparedStatement(conn, insertStatement); // create prepared statement
-//        PreparedStatement ps = DBQuery.getPreparedStatement();
-//
-//        String country = "Canada";
-//        String createDate = LocalDateTime.now().toString();  //Warning this saves in local time!
-//        String createdBy = "Steve";
-//        String lastUpdateBy = "Steve";
-//
-//        ps.setString(1, country);
-//        ps.setString(2, createDate);
-//        ps.setString(3, createdBy);
-//        ps.setString(4, lastUpdateBy);
-//
-//        ps.execute();
-//
-//        //check how many rows were effected:
-//        if (ps.getUpdateCount() > 0) {
-//            System.out.println(ps.getUpdateCount() + " rows affected");
-//        } else {
-//            System.out.println("No change!");
-//        }
-//
-//        DBConnection.closeConnection();
-//    }
 
 }

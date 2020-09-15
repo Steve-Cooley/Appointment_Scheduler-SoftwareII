@@ -1,4 +1,4 @@
-package View_Controller;
+package View_Controller.Customer;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

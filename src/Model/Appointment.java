@@ -3,6 +3,7 @@ package Model;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Appointment {
@@ -200,5 +201,9 @@ public class Appointment {
 
     public String getStartTime() {
         return start.toLocalTime().toString();
+    }  //Fixme this could be a way to return pretty times, just set tcTypeDescription to startTime
+
+    public LocalDate getDate() {
+        return start.toLocalDate();
     }
 }
