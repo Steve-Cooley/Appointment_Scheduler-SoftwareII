@@ -27,6 +27,9 @@ import java.util.ResourceBundle;
 
 public class HomeScreenController implements Initializable {
 
+    @FXML private Button btnNumApptInMonth;
+    @FXML private Button btnSchedule;
+    @FXML private Button btnNumCust;
     @FXML private Button BtnLogout;
     @FXML private Button BtnAddAppt;
     @FXML private Button BtnModAppt;
@@ -115,7 +118,6 @@ public class HomeScreenController implements Initializable {
             Parent p = FXMLLoader.load(getClass().getResource("../Customer/CustomerModify.fxml"));
             Scene scene = new Scene(p);
 
-
             //Set stage info
             Stage window = (Stage) ((Node) m.getSource()).getScene().getWindow();
 
@@ -193,7 +195,6 @@ public class HomeScreenController implements Initializable {
             window.setScene(scene);
             window.show();
         }
-
     }
 
     public void setBtnDelAppt(MouseEvent m) throws IOException {
@@ -219,27 +220,67 @@ public class HomeScreenController implements Initializable {
         System.out.println("radioButton changed!");
         if (monthWeekToggleGroup.getSelectedToggle().equals(radioBtnMonth)) {
             System.out.println("month selected");
-            for (Appointment appointment : Inventory.getAppointments()) {
-                //System.out.println(appointment.getDate());
+            // This lambda isn't meant to count toward the requirement, but I stuck it here so that I can easily
+            // see the difference between the lambda version and the classic 'for each' statement
+            Inventory.getAppointments().forEach(appointment -> {
                 LocalDate date = appointment.getDate();
                 if (date.isBefore(now.plusDays(30)) && date.isAfter(now)) {
                     filteredAppts.add(appointment);
                 }
-            }
-            //appointmentTableView.setItems(filteredAppts);
-            //System.out.println(filteredAppts);
+            });
         } else {
             System.out.println("week selected");
             for (Appointment appointment : Inventory.getAppointments()) {
-                //System.out.println(appointment.getDate());
                 LocalDate date = appointment.getDate();
                 if (date.isBefore(now.plusDays(7)) && date.isAfter(now)) {
                     filteredAppts.add(appointment);
                 }
             }
-            //appointmentTableView.setItems(filteredAppts);
         }
         appointmentTableView.setItems(filteredAppts);
+    }
+
+    public void setBtnNumApptTypesInMonth() {
+        System.out.println("Report button pushed: number of appointments in a month.");
+        int numBusinessAppts = 0;
+        int numPersonalAppts = 0;
+        int numOtherAppts = 0;
+        ObservableList<Appointment> allAppointments = Inventory.getAppointments();
+        ObservableList<Appointment> filteredAppointments = FXCollections.observableArrayList();
+        LocalDate now = LocalDate.now();
+        //add appointments that take place in the next 30 days to observable list
+        for (Appointment appointment: allAppointments) {
+            LocalDate date = appointment.getDate();
+            if (date.isAfter(now) && date.isBefore(now.plusDays(30))) {
+                filteredAppointments.add(appointment);
+            }
+        }
+        System.out.println("Number of appointments in filtered list: " + filteredAppointments.size());
+        // iterate through that list, looking for keywords then incrementing appropriately
+        for (Appointment appointment: filteredAppointments) {
+            String type = appointment.getTitle();
+            System.out.println("Type: " + type);
+            if (type.contains("BUSINESS")) {
+                numBusinessAppts++;
+            }
+            if (type.contains("PERSONAL")) {
+                numPersonalAppts++;
+            }
+            if (!type.contains("BUSINESS") && !type.contains("PERSONAL")) {
+                numOtherAppts++;
+            }
+        }
+        System.out.println("Number of business appointments: " + numBusinessAppts);
+        System.out.println("Number of personal appointments: " + numPersonalAppts);
+        System.out.println("Number of other appointments: " + numOtherAppts);
+    }
+
+    public void setBtnSchedule() {
+        System.out.println("Report button pushed: schedule for consultant.");
+    }
+
+    public void setBtnNumCust() {
+        System.out.println("Report button pushed: total number of customers.");
     }
 
 }

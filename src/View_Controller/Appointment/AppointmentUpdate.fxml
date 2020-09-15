@@ -36,8 +36,8 @@
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="49.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="110.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -50,7 +50,7 @@
                   <TextField fx:id="FieldAppointment" disable="true" GridPane.columnIndex="1" />
                   <TextField fx:id="fieldCustName" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="FieldUserID" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextArea fx:id="TextAreaDescription" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextArea fx:id="TextAreaDescription" prefHeight="200.0" prefWidth="200.0" promptText="Up to 255 characters. You can tag with &quot;BUSINESS&quot; or &quot;PERSONAL&quot; by using those words in all caps.  It's possible to use both tags. These tags will affect reports" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <DatePicker fx:id="datepicker" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label text="Date" GridPane.rowIndex="4" />
                   <Label text="Hour" GridPane.rowIndex="5" />
