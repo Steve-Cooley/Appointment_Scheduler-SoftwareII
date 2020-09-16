@@ -3,6 +3,7 @@ package View_Controller.Home;
 import Model.Appointment;
 import Model.Customer;
 import Model.Inventory;
+import Model.User;
 import View_Controller.Appointment.AppointmentUpdateController;
 import View_Controller.Customer.CustomerModifyController;
 import javafx.collections.FXCollections;
@@ -19,10 +20,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import utils.AppointmentSQL;
 import utils.CustomerSQL;
+import utils.TimeMachine;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 public class HomeScreenController implements Initializable {
@@ -66,13 +73,15 @@ public class HomeScreenController implements Initializable {
         appointmentTableView.setItems(Inventory.getAppointments());
         tcCustomer.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         tcStart.setCellValueFactory(new PropertyValueFactory<>("start"));
-        //tcEnd.setCellValueFactory(new PropertyValueFactory<>("end"));
         tcTypeDescription.setCellValueFactory(new PropertyValueFactory<>("title"));
 
         //group radio buttons
         monthWeekToggleGroup = new ToggleGroup();
         radioBtnMonth.setToggleGroup(monthWeekToggleGroup);
         radioBtnWeek.setToggleGroup((monthWeekToggleGroup));
+
+        checkForImminentAppointment();
+
     }
 
     public void logoutBtnPressed(MouseEvent mouseEvent) throws IOException {
@@ -97,7 +106,6 @@ public class HomeScreenController implements Initializable {
 
         //Set stage info
         Stage window = (Stage)((Node) m.getSource()).getScene().getWindow();
-
         window.setScene(scene);
         window.show();
     }
@@ -131,6 +139,7 @@ public class HomeScreenController implements Initializable {
         //I need to have the SelectionModel as a separate variable so that I can see if it's empty
         SelectionModel<Customer> selection = customerTableView.getSelectionModel();
         ObservableList<Customer> customers = Inventory.getCustomers();
+        ObservableList<Appointment> apptsToDelete = FXCollections.observableArrayList();
         // If no selection made, give error. Otherwise delete customer and all associated appointments.
         if (selection.isEmpty()) {
             System.out.println("nothing was selected");
@@ -148,8 +157,13 @@ public class HomeScreenController implements Initializable {
                 int custIdFromAppointment = appointment.getCustomerId();
                 if(custIdFromAppointment == customerIdFromCustomer) {
                     AppointmentSQL.deleteFromDbByCustID(custIdFromAppointment);
-                    //Inventory.delAppointmentFromList(appointment);
+                    //Inventory.delAppointmentFromList(appointment);  concurrent modification error
+                    apptsToDelete.add(appointment);
                 }
+            }
+            //delete appointments from Inventory
+            for (Appointment apptToDel: apptsToDelete) {
+                Inventory.delAppointmentFromList(apptToDel);
             }
             //Delete from DB
             CustomerSQL.deleteCustomer(customerFromTv.getId(), customerFromTv.getAddressId());
@@ -224,7 +238,7 @@ public class HomeScreenController implements Initializable {
             // see the difference between the lambda version and the classic 'for each' statement
             Inventory.getAppointments().forEach(appointment -> {
                 LocalDate date = appointment.getDate();
-                if (date.isBefore(now.plusDays(30)) && date.isAfter(now)) {
+                if (date.isBefore(now.plusDays(30)) && date.isAfter(now.minusDays(1))) {
                     filteredAppts.add(appointment);
                 }
             });
@@ -232,7 +246,7 @@ public class HomeScreenController implements Initializable {
             System.out.println("week selected");
             for (Appointment appointment : Inventory.getAppointments()) {
                 LocalDate date = appointment.getDate();
-                if (date.isBefore(now.plusDays(7)) && date.isAfter(now)) {
+                if (date.isBefore(now.plusDays(7)) && date.isAfter(now.minusDays(1))) {
                     filteredAppts.add(appointment);
                 }
             }
@@ -240,26 +254,29 @@ public class HomeScreenController implements Initializable {
         appointmentTableView.setItems(filteredAppts);
     }
 
-    public void setBtnNumApptTypesInMonth() {
+    public void setBtnNumApptTypesInMonth() throws IOException {
         System.out.println("Report button pushed: number of appointments in a month.");
         int numBusinessAppts = 0;
         int numPersonalAppts = 0;
         int numOtherAppts = 0;
+        String business;
+        String personal;
+        String other;
         ObservableList<Appointment> allAppointments = Inventory.getAppointments();
         ObservableList<Appointment> filteredAppointments = FXCollections.observableArrayList();
         LocalDate now = LocalDate.now();
         //add appointments that take place in the next 30 days to observable list
         for (Appointment appointment: allAppointments) {
             LocalDate date = appointment.getDate();
-            if (date.isAfter(now) && date.isBefore(now.plusDays(30))) {
+            if (date.isAfter(now.minusDays(1)) && date.isBefore(now.plusDays(30))) {
                 filteredAppointments.add(appointment);
             }
         }
-        System.out.println("Number of appointments in filtered list: " + filteredAppointments.size());
+        //System.out.println("Number of appointments in filtered list: " + filteredAppointments.size());
         // iterate through that list, looking for keywords then incrementing appropriately
         for (Appointment appointment: filteredAppointments) {
             String type = appointment.getTitle();
-            System.out.println("Type: " + type);
+            //System.out.println("Type: " + type);
             if (type.contains("BUSINESS")) {
                 numBusinessAppts++;
             }
@@ -270,17 +287,64 @@ public class HomeScreenController implements Initializable {
                 numOtherAppts++;
             }
         }
-        System.out.println("Number of business appointments: " + numBusinessAppts);
-        System.out.println("Number of personal appointments: " + numPersonalAppts);
-        System.out.println("Number of other appointments: " + numOtherAppts);
+        business = "Number of business appointments: " + numBusinessAppts;
+        System.out.println(business);
+        personal = "Number of personal appointments: " + numPersonalAppts;
+        System.out.println(personal);
+        other = "Number of other appointments: " + numOtherAppts;
+        System.out.println(other);
+        FileWriter outPutFile = new FileWriter("Types_of_appointments.txt");
+        outPutFile.write(business + "\n");
+        outPutFile.write(personal + "\n");
+        outPutFile.write(other);
+        outPutFile.close();
     }
 
-    public void setBtnSchedule() {
+    public void setBtnSchedule() throws IOException {
         System.out.println("Report button pushed: schedule for consultant.");
+        int userId = Inventory.getActiveUserId();
+        ObservableList<Appointment> allAppointments = Inventory.getAppointments();
+        FileWriter outputFile = new FileWriter("User_schedule.txt");
+        // sort appointments by time
+        allAppointments.sort(Comparator.comparing(Appointment::getStart));
+        outputFile.write("List of all appointments for active user in the format date, time, customer name: \n");
+        System.out.println("active user id is: " + userId);
+        for (Appointment appointment: allAppointments) {
+            String s = appointment.getDate() + " " +
+                    appointment.getStartTime() + " " +
+                    appointment.getCustomerName();
+            //System.out.println(s);
+            outputFile.write(s + "\n");
+        }
+        outputFile.close();
     }
 
-    public void setBtnNumCust() {
+    public void setBtnNumCust() throws IOException {
         System.out.println("Report button pushed: total number of customers.");
+        FileWriter outputFile = new FileWriter("Number_of_customers.txt");
+        int numberOfCustomers = Inventory.getCustomers().size();
+        System.out.println("The number of customers is: " + numberOfCustomers);
+        outputFile.write("The total number of all customers for all users is: " + numberOfCustomers);
+        outputFile.close();
     }
 
+    public void checkForImminentAppointment() {
+        System.out.println("Check for immediate appointment is running!");
+        ObservableList<Appointment> allAppointments = Inventory.getAppointments();
+        int userId = Inventory.getActiveUserId();
+        LocalDateTime now = LocalDateTime.now();
+        for (Appointment appointment: allAppointments) {
+            LocalDateTime apptStart = appointment.getStart();
+            if (appointment.getUserId() == userId
+                    && apptStart.isAfter(now)
+                    && apptStart.isBefore(now.plusMinutes(15))) {
+                System.out.println("You have an appointment within 15 minutes!");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Appointment Alert");
+                alert.setContentText("You have an appointment in a few minutes " +
+                        "with \n" + appointment.getCustomerName());
+                alert.showAndWait();
+            }
+        }
+    }
 }

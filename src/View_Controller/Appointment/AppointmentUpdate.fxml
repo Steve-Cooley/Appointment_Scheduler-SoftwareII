@@ -18,12 +18,6 @@
       <AnchorPane layoutX="3.0" layoutY="3.0" prefHeight="677.0" prefWidth="1014.0">
          <children>
             <Label layoutX="57.0" layoutY="44.0" text="Update Appointment" />
-            <TableView fx:id="tvAppointments" layoutX="487.0" layoutY="354.0" prefHeight="200.0" prefWidth="465.0">
-               <columns>
-                  <TableColumn prefWidth="75.0" text="C1" />
-                  <TableColumn prefWidth="75.0" text="C2" />
-               </columns>
-            </TableView>
             <Button fx:id="BtnAddCust" layoutX="824.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#addCustomerPressed" text="Add" />
             <Button fx:id="BtnDelCust" layoutX="824.0" layoutY="565.0" mnemonicParsing="false" text="Delete" />
             <Button fx:id="BtnCancel" layoutX="921.0" layoutY="615.0" mnemonicParsing="false" onMouseClicked="#setBtnCancel" text="Cancel" />
@@ -36,7 +30,6 @@
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="49.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="110.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -45,20 +38,19 @@
                <children>
                   <Label text="Appointment ID" />
                   <Label text="Customer Name" GridPane.rowIndex="1" />
-                  <Label text="userID" GridPane.rowIndex="2" />
-                  <Label text="Description" GridPane.rowIndex="3" />
+                  <Label text="Description" GridPane.rowIndex="2" />
                   <TextField fx:id="FieldAppointment" disable="true" GridPane.columnIndex="1" />
                   <TextField fx:id="fieldCustName" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="FieldUserID" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextArea fx:id="TextAreaDescription" prefHeight="200.0" prefWidth="200.0" promptText="Up to 255 characters. You can tag with &quot;BUSINESS&quot; or &quot;PERSONAL&quot; by using those words in all caps.  It's possible to use both tags. These tags will affect reports" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <DatePicker fx:id="datepicker" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label text="Date" GridPane.rowIndex="4" />
-                  <Label text="Hour" GridPane.rowIndex="5" />
-                  <Label text="Minutes" GridPane.rowIndex="6" />
-                  <ComboBox fx:id="comboHour" prefHeight="32.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <ComboBox fx:id="comboMinute" prefHeight="32.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextArea fx:id="TextAreaDescription" prefHeight="200.0" prefWidth="200.0" promptText="Up to 255 characters. You can tag with &quot;BUSINESS&quot; or &quot;PERSONAL&quot; by using those words in all caps.  It's possible to use both tags. These tags will affect reports" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="datepicker" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Date" GridPane.rowIndex="3" />
+                  <Label text="Hour" GridPane.rowIndex="4" />
+                  <Label text="Minutes" GridPane.rowIndex="5" />
+                  <ComboBox fx:id="comboHour" prefHeight="32.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="comboMinute" prefHeight="32.0" prefWidth="192.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
+            <TextArea editable="false" layoutX="494.0" layoutY="357.0" prefHeight="200.0" prefWidth="465.0" text="You don't necessarily have to select a customer here (one is already&#10;selected).  Tagging still works the same, and you still have to select&#10;both the date and time.  " />
          </children>
       </AnchorPane>
       <TableView fx:id="tvCustomers" layoutX="497.0" layoutY="106.0" prefHeight="200.0" prefWidth="465.0">

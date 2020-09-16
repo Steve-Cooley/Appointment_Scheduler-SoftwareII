@@ -13,9 +13,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import utils.TimeMachine;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -33,7 +39,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Locale.setDefault(new Locale("es"));
+        //Locale.setDefault(new Locale("es"));  // So I don't have to reboot to test Spanish text.
         rb = ResourceBundle.getBundle("View_Controller.Lang", Locale.getDefault());
         //System.out.println(rb.getString("test"));
         LabelUsername.setText(rb.getString("username"));
@@ -69,6 +75,9 @@ public class LoginController implements Initializable {
             Parent HomeScreenParent = FXMLLoader.load(getClass().getResource("Home/HomeScreenController.fxml"));
             Scene mainScreen = new Scene(HomeScreenParent);
 
+            // log user login
+            logUserActivity();
+
             //Set stage info
             Stage window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
 
@@ -83,8 +92,8 @@ public class LoginController implements Initializable {
         }
     }
 
-    public boolean credentialCheck(String userName, String password) {
-        if (userName.equals("John Doe") && password.equals("super secure password")) {
+    private boolean credentialCheck(String userName, String password) {
+        if (userName.equals("test") && password.equals("test")) {
             return true;
         } else if(userName.equals("Jane Doe") && password.equals("super secure password")) {
             return true;
@@ -93,6 +102,21 @@ public class LoginController implements Initializable {
         }
     }
 
-    // todo language stuff
-    // todo alerts (with language stuff)
+    private void logUserActivity() throws IOException {
+        LocalDateTime nowLDT = LocalDateTime.now();
+        Timestamp nowUTC = TimeMachine.ldtToTimestamp(nowLDT);
+        User user = Inventory.getActiveUser();
+        String userName = user.getUserName();
+        File file = new File("UserLog.txt");
+        if (!file.exists()) {
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.append("This is a log file with timestamps in UTC.\n");
+            fileWriter.append("User " + userName + " logged in at: " + nowUTC + "\n");
+            fileWriter.close();
+        } else {
+            FileWriter fileWriter = new FileWriter(file, true);  // the second param causes fw to append
+            fileWriter.append("User " + userName + " logged in at: " + nowUTC + "\n");
+            fileWriter.close();
+        }
+    }
 }

@@ -135,6 +135,10 @@ public class AppointmentUpdateController implements Initializable {
             }
         } else {
             System.out.println("input is invalid");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Input");
+            alert.setContentText("Please ensure that a customer is selected,\n and that all available data is filled in");
+            alert.showAndWait();
         }
     }
 

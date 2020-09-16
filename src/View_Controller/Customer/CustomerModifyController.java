@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -44,18 +45,26 @@ public class CustomerModifyController implements Initializable {
         String newAddress = fieldAddress.getText();
         String newPhone = fieldPhone.getText();
 
-        //update customer data
-        CustomerSQL.updateCustomer(customer, newName, newAddress, newPhone);
+        if (inputIsValid()) {
+            //update customer data
+            CustomerSQL.updateCustomer(customer, newName, newAddress, newPhone);
 
-        // open up main screen
-        Parent parent = FXMLLoader.load(getClass().getResource("../Home/HomeScreenController.fxml"));
-        Scene scene = new Scene(parent);
+            // open up main screen
+            Parent parent = FXMLLoader.load(getClass().getResource("../Home/HomeScreenController.fxml"));
+            Scene scene = new Scene(parent);
 
-        //Set stage info
-        Stage window = (Stage)((Node) m.getSource()).getScene().getWindow();
+            //Set stage info
+            Stage window = (Stage) ((Node) m.getSource()).getScene().getWindow();
 
-        window.setScene(scene);
-        window.show();
+            window.setScene(scene);
+            window.show();
+        } else {
+            System.out.println("Input is invalid.");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please ensure all fields are filled out.");
+            alert.setTitle("Incomplete");
+            alert.showAndWait();
+        }
 
     }
 
@@ -71,5 +80,17 @@ public class CustomerModifyController implements Initializable {
 
         window.setScene(scene);
         window.show();
+    }
+
+    private boolean inputIsValid() {
+        if (
+                fieldName.getText().isEmpty()
+                        || fieldAddress.getText().isEmpty()
+                        || fieldPhone.getText().isEmpty()
+        ) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

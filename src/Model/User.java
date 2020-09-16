@@ -7,21 +7,20 @@ import java.time.LocalDateTime;
 
 public class User {
 
-    SimpleIntegerProperty userId;
-    SimpleStringProperty userName;
-    SimpleStringProperty password;
-    SimpleIntegerProperty active;
-    LocalDateTime createDate;
-    SimpleStringProperty createdBy;
-    LocalDateTime lastUpdate;
-    SimpleStringProperty lastUpdateBy;
+    private SimpleIntegerProperty userId;
+    private SimpleStringProperty userName;
+    private SimpleStringProperty password;
+    private SimpleIntegerProperty active;
+    private LocalDateTime createDate;
+    private SimpleStringProperty createdBy;
+    private LocalDateTime lastUpdate;
+    private SimpleStringProperty lastUpdateBy;
 
-    // fixme: some redundancy with credentialCheck() in LoginController.  Could be good to leave it this way
     public User(String name, String password) {
         System.out.println("User constructor is running");
         System.out.println("username: " + name + " pass: " + password );
 
-        if (name.equals("John Doe") && password.equals("super secure password")) {
+        if (name.equals("test") && password.equals("test")) {
             userId = new SimpleIntegerProperty(1);
             System.out.println("User ID: " + userId);
             userName = new SimpleStringProperty(name);
@@ -31,12 +30,16 @@ public class User {
             System.out.println("User ID: " + userId);
             userName = new SimpleStringProperty(name);
         } else {
-            System.out.println("Invalid Login");
-            // todo I don't think this can possibly run
+            System.out.println("Invalid Login"); // should never run
         }
+    }
 
+    public int getUserId() {
+        return userId.get();
+    }
 
-
+    public String getUserName() {
+        return userName.get();
     }
 
 }

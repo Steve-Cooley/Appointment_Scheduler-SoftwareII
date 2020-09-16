@@ -71,8 +71,6 @@ public class Inventory {
                 " WHERE customer.addressId = address.addressId;";
 
         try {
-//            DBQuery.setPreparedStatement(conn, selectStatement);
-//            PreparedStatement ps = DBQuery.getPreparedStatement();
             PreparedStatement ps = conn.prepareStatement(selectStatement);
 
             ps.execute();
@@ -182,14 +180,12 @@ public class Inventory {
 
     }
 
-
-    // user section
-
+    //      user section
 
     public static void setActiveUser(User user) {
         System.out.println("setActiveUser is running");
         activeUser = user;
-        System.out.println("the active user is: " + user.userName);
+        System.out.println("the active user is: " + user.getUserName());
     }
 
     public static void removeActiveUser() {
@@ -197,4 +193,11 @@ public class Inventory {
         System.out.println("logged out");
     }
 
+    public static int getActiveUserId() {
+        return activeUser.getUserId();
+    }
+
+    public static User getActiveUser() {
+        return activeUser;
+    }
 }

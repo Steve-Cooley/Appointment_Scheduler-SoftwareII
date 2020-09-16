@@ -116,7 +116,8 @@ public class AppointmentAddController implements Initializable {
 
             //check for scheduling conflict
             if(!Inventory.isTimeSlotAlreadyTaken(localDateTime)) {
-                AppointmentSQL.insertAppointmentsToDB(customerId, 1, appointmentType, start, end);
+                int userId = Inventory.getActiveUserId();
+                AppointmentSQL.insertAppointmentsToDB(customerId, userId, appointmentType, start, end);
                 setBtnCancel(e);
             } else {
                 System.out.println("scheduling conflict");
