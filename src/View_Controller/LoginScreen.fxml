@@ -17,7 +17,7 @@
             <Button fx:id="BtnLogin" layoutX="231.0" layoutY="152.0" mnemonicParsing="false" onMouseClicked="#setBtnLogin" text="Login" />
          </children>
       </AnchorPane>
-      <Button fx:id="BtnExit" layoutX="464.0" layoutY="336.0" mnemonicParsing="false" text="Exit" />
+      <Button fx:id="BtnExit" layoutX="464.0" layoutY="336.0" mnemonicParsing="false" text="Exit" visible="false" />
       <Button fx:id="BtnCheater" layoutX="479.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#cheaterBtnPushed" text="Cheater Button" visible="false" />
    </children>
 </AnchorPane>
