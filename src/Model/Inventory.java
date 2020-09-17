@@ -154,7 +154,7 @@ public class Inventory {
                 customerId = rs.getInt("customerId");
                 userId = rs.getInt("userId");
                 java.sql.Timestamp st = rs.getTimestamp("start");
-                java.sql.Timestamp et = rs.getTimestamp("end");
+                java.sql.Timestamp et = rs.getTimestamp("end"); // not used
                 customerName = rs.getString("customerName");
                 title = rs.getString("title");
                 //todo appointment type

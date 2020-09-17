@@ -8,32 +8,32 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="914.0" prefWidth="1478.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.Home.HomeScreenController">
+<AnchorPane prefHeight="670.0" prefWidth="1301.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.Home.HomeScreenController">
    <children>
-      <Label layoutX="133.0" layoutY="66.0" text="Home Screen" />
-      <Button fx:id="BtnLogout" layoutX="1361.0" layoutY="848.0" mnemonicParsing="false" onMouseClicked="#logoutBtnPressed" text="Log Out" />
-      <AnchorPane layoutX="702.0" layoutY="176.0" prefHeight="589.0" prefWidth="586.0">
+      <Label layoutX="33.0" layoutY="66.0" text="Home Screen" />
+      <Button fx:id="BtnLogout" layoutX="1159.0" layoutY="614.0" mnemonicParsing="false" onMouseClicked="#logoutBtnPressed" text="Log Out" />
+      <AnchorPane layoutX="611.0" layoutY="100.0" prefHeight="459.0" prefWidth="643.0">
          <children>
-            <TableView fx:id="appointmentTableView" layoutX="128.0" prefHeight="589.0" prefWidth="611.0">
+            <TableView fx:id="appointmentTableView" layoutX="98.0" prefHeight="459.0" prefWidth="550.0">
                <columns>
                   <TableColumn fx:id="tcStart" prefWidth="131.0" text="Start" />
                   <TableColumn fx:id="tcCustomer" prefWidth="155.0" text="Customer" />
                   <TableColumn fx:id="tcTypeDescription" prefWidth="324.0" text="Type/Description" />
                </columns>
             </TableView>
-            <AnchorPane layoutX="6.0" layoutY="195.0" prefHeight="200.0" prefWidth="137.0">
+            <AnchorPane layoutY="188.0" prefHeight="200.0" prefWidth="92.0">
                <children>
-                  <Button fx:id="BtnAddAppt" layoutX="38.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#setBtnAddAppt" text="add" />
-                  <Button fx:id="BtnModAppt" layoutX="38.0" layoutY="87.0" mnemonicParsing="false" onMouseClicked="#setBtnModAppt" text="modify" />
-                  <Button fx:id="BtnDelAppt" layoutX="38.0" layoutY="140.0" mnemonicParsing="false" onMouseClicked="#setBtnDelAppt" text="delete" />
+                  <Button fx:id="BtnAddAppt" layoutX="18.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#setBtnAddAppt" text="add" />
+                  <Button fx:id="BtnModAppt" layoutX="14.0" layoutY="87.0" mnemonicParsing="false" onMouseClicked="#setBtnModAppt" text="modify" />
+                  <Button fx:id="BtnDelAppt" layoutX="16.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#setBtnDelAppt" text="delete" />
                   <Label layoutX="38.0" layoutY="6.0" text="Calendar" />
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="104.0" layoutY="176.0" prefHeight="589.0" prefWidth="634.0">
+      <AnchorPane layoutX="14.0" layoutY="100.0" prefHeight="459.0" prefWidth="604.0">
          <children>
-            <TableView fx:id="customerTableView" layoutX="128.0" prefHeight="589.0" prefWidth="467.0">
+            <TableView fx:id="customerTableView" layoutX="128.0" prefHeight="458.0" prefWidth="467.0">
                <columns>
                   <TableColumn fx:id="tcCustId" prefWidth="43.0" text="ID" />
                   <TableColumn fx:id="tcCustName" prefWidth="134.0" text="Name" />
@@ -41,25 +41,25 @@
                   <TableColumn fx:id="tcCustPhone" prefWidth="109.0" text="Phone" />
                </columns>
             </TableView>
-            <AnchorPane layoutX="6.0" layoutY="195.0" prefHeight="200.0" prefWidth="137.0">
+            <AnchorPane layoutX="6.0" layoutY="195.0" prefHeight="200.0" prefWidth="123.0">
                <children>
-                  <Button fx:id="BtnAddCust" layoutX="38.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#setBtnAddCust" text="add" />
-                  <Button fx:id="BtnModCust" layoutX="38.0" layoutY="87.0" mnemonicParsing="false" onMouseClicked="#setBtnModCust" text="modify" />
-                  <Button fx:id="BtnDelCust" layoutX="38.0" layoutY="140.0" mnemonicParsing="false" onMouseClicked="#setBtnDelCust" text="delete" />
+                  <Button fx:id="BtnAddCust" layoutX="15.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#setBtnAddCust" text="add" />
+                  <Button fx:id="BtnModCust" layoutX="15.0" layoutY="87.0" mnemonicParsing="false" onMouseClicked="#setBtnModCust" text="modify" />
+                  <Button fx:id="BtnDelCust" layoutX="17.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#setBtnDelCust" text="delete" />
                   <Label layoutX="35.0" layoutY="6.0" text="Customers" />
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <RadioButton fx:id="radioBtnWeek" layoutX="1170.0" layoutY="135.0" mnemonicParsing="false" onAction="#radioBtnChange" text="Week" />
-      <RadioButton fx:id="radioBtnMonth" layoutX="1040.0" layoutY="135.0" mnemonicParsing="false" onAction="#radioBtnChange" text="Month" />
-      <ButtonBar layoutX="364.0" layoutY="841.0" prefHeight="40.0" prefWidth="751.0">
+      <RadioButton fx:id="radioBtnWeek" layoutX="1087.0" layoutY="65.0" mnemonicParsing="false" onAction="#radioBtnChange" text="Week" />
+      <RadioButton fx:id="radioBtnMonth" layoutX="996.0" layoutY="65.0" mnemonicParsing="false" onAction="#radioBtnChange" text="Month" />
+      <ButtonBar layoutX="291.0" layoutY="607.0" prefHeight="40.0" prefWidth="751.0">
         <buttons>
           <Button fx:id="btnNumApptInMonth" mnemonicParsing="false" onMouseClicked="#setBtnNumApptTypesInMonth" text="Number of appointments by month" />
             <Button fx:id="btnSchedule" mnemonicParsing="false" onMouseClicked="#setBtnSchedule" text="consultant schedule" />
             <Button fx:id="btnNumCust" mnemonicParsing="false" onMouseClicked="#setBtnNumCust" prefHeight="26.0" prefWidth="352.0" text="Number of customers" />
         </buttons>
       </ButtonBar>
-      <Label layoutX="722.0" layoutY="806.0" text="Reports" />
+      <Label layoutX="666.0" layoutY="568.0" text="Reports" />
    </children>
 </AnchorPane>
