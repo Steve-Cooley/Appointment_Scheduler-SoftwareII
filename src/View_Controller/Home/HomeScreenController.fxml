@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="670.0" prefWidth="1301.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.Home.HomeScreenController">
+<AnchorPane prefHeight="670.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.Home.HomeScreenController">
    <children>
       <Label layoutX="33.0" layoutY="66.0" text="Home Screen" />
       <Button fx:id="BtnLogout" layoutX="1159.0" layoutY="614.0" mnemonicParsing="false" onMouseClicked="#logoutBtnPressed" text="Log Out" />
