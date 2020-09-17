@@ -110,13 +110,13 @@ public class LoginController implements Initializable {
         File file = new File("UserLog.txt");
         if (!file.exists()) {
             FileWriter fileWriter = new FileWriter(file);
-            fileWriter.append("This is a log file with timestamps in UTC.\n");
-            fileWriter.append("User " + userName + " logged in at: " + nowUTC + "\n");
+            fileWriter.append("This is a log file with timestamps in ***UTC***.\n");
+            fileWriter.append("User " + userName + " logged in at: " + nowUTC + " UTC\n");
             fileWriter.flush();
             fileWriter.close();
         } else {
             FileWriter fileWriter = new FileWriter(file, true);  // the second param causes fw to append
-            fileWriter.append("User " + userName + " logged in at: " + nowUTC + "\n");
+            fileWriter.append("User " + userName + " logged in at: " + nowUTC + " UTC\n");
             fileWriter.close();
         }
 
