@@ -4,11 +4,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Customer {
-    private SimpleIntegerProperty id;
-    private SimpleStringProperty name;
-    private SimpleIntegerProperty addressId;
-    private SimpleStringProperty address;
-    private SimpleStringProperty phone;
+    private final SimpleIntegerProperty id;
+    private final SimpleStringProperty name;
+    private final SimpleIntegerProperty addressId;
+    private final SimpleStringProperty address;
+    private final SimpleStringProperty phone;
 
     /**]
      *  Constructor that populates all fields.

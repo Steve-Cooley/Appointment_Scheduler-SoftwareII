@@ -40,7 +40,7 @@ public class DBConnection {
         return conn;
     }
     //Requirement F "mechanisms" 2/2 (throws)
-    public static void closeConnection() throws ClassNotFoundException, SQLException, Exception {
+    public static void closeConnection() throws Exception {
         conn.close();
         System.out.println("Connection closed");
     }

@@ -83,14 +83,8 @@ public class CustomerModifyController implements Initializable {
     }
 
     private boolean inputIsValid() {
-        if (
-                fieldName.getText().isEmpty()
-                        || fieldAddress.getText().isEmpty()
-                        || fieldPhone.getText().isEmpty()
-        ) {
-            return false;
-        } else {
-            return true;
-        }
+        return !fieldName.getText().isEmpty()
+                && !fieldAddress.getText().isEmpty()
+                && !fieldPhone.getText().isEmpty();
     }
 }

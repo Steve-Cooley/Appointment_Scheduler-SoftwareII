@@ -2,15 +2,18 @@ package Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import utils.*;
+import utils.DBConnection;
+import utils.TimeMachine;
 
-import java.sql.*;
-import java.time.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.time.LocalDateTime;
 
 public class Inventory {
-    private static ObservableList<Customer> customers = FXCollections.observableArrayList();
-    private static ObservableList<User> users = FXCollections.observableArrayList();
-    private static ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+    private static final ObservableList<Customer> customers = FXCollections.observableArrayList();
+    private static final ObservableList<User> users = FXCollections.observableArrayList();
+    private static final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
     private static User activeUser;
 
     public static boolean isTimeSlotAlreadyTaken(LocalDateTime potential) {
