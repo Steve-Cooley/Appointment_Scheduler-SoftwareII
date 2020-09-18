@@ -45,9 +45,9 @@ public class AppointmentAddController implements Initializable {
     @FXML private ComboBox<String> comboMinute;
 
     private Customer customer = null;
-    private Appointment appointment = null;
-    private static ObservableList<String > hours = FXCollections.observableArrayList() ;
-    private static ObservableList<String > minutes = FXCollections.observableArrayList();
+    private final Appointment appointment = null;
+    private static final ObservableList<String > hours = FXCollections.observableArrayList() ;
+    private static final ObservableList<String > minutes = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -85,10 +85,19 @@ public class AppointmentAddController implements Initializable {
     }
 
     public void setBtnSelectCustomer(MouseEvent e) {
-        // select customer from tableView
-        customer = tvCustomers.getSelectionModel().getSelectedItem();
-        //populate relevant fields
-        fieldCustName.setText(customer.getName());
+        SelectionModel<Customer> selectionModel = tvCustomers.getSelectionModel();
+        // check if the user actually has a customer selected
+        if (!selectionModel.isEmpty()) {
+            // select customer from tableView
+            customer = selectionModel.getSelectedItem();
+
+            //populate relevant fields
+            fieldCustName.setText(customer.getName());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please select a customer from the list");
+            alert.showAndWait();
+        }
     }
 
     public void setBtnAddAppointment(MouseEvent e) throws IOException {
@@ -144,9 +153,6 @@ public class AppointmentAddController implements Initializable {
                 || comboHour.getValue() == null
                 || comboMinute.getValue() == null
         ) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Invalid Input");
-//            alert.setContentText("Please ensure that a customer is selected, and that all available data is filled in");
             System.out.println("Input not valid");
             return false;
         } else {

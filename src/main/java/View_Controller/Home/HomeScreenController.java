@@ -3,7 +3,6 @@ package View_Controller.Home;
 import Model.Appointment;
 import Model.Customer;
 import Model.Inventory;
-import Model.User;
 import View_Controller.Appointment.AppointmentUpdateController;
 import View_Controller.Customer.CustomerModifyController;
 import javafx.collections.FXCollections;
@@ -20,13 +19,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import utils.AppointmentSQL;
 import utils.CustomerSQL;
-import utils.TimeMachine;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -272,7 +268,6 @@ public class HomeScreenController implements Initializable {
                 filteredAppointments.add(appointment);
             }
         }
-        //System.out.println("Number of appointments in filtered list: " + filteredAppointments.size());
         // iterate through that list, looking for keywords then incrementing appropriately
         for (Appointment appointment: filteredAppointments) {
             String type = appointment.getTitle();
@@ -298,6 +293,10 @@ public class HomeScreenController implements Initializable {
         outPutFile.write(personal + "\n");
         outPutFile.write(other);
         outPutFile.close();
+        // prompt the user to check the appropriate file
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Look for the file \"Types_of_appointments.txt\".\n");
+        alert.showAndWait();
     }
 
     public void setBtnSchedule() throws IOException {
@@ -317,6 +316,10 @@ public class HomeScreenController implements Initializable {
             outputFile.write(s + "\n");
         }
         outputFile.close();
+        // prompt the user to check the appropriate file
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Look for the file \"User_schedule.txt\".\n");
+        alert.showAndWait();
     }
 
     public void setBtnNumCust() throws IOException {
@@ -326,6 +329,9 @@ public class HomeScreenController implements Initializable {
         System.out.println("The number of customers is: " + numberOfCustomers);
         outputFile.write("The total number of all customers for all users is: " + numberOfCustomers);
         outputFile.close();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Look for the file \"User_schedule.txt\".\n");
+        alert.showAndWait();
     }
 
     public void checkForImminentAppointment() {

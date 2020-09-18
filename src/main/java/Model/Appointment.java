@@ -201,7 +201,7 @@ public class Appointment {
 
     public String getStartTime() {
         return start.toLocalTime().toString();
-    }  //Fixme this could be a way to return pretty times, just set tcTypeDescription to startTime
+    }  // this could be a way to return pretty times, just set tcTypeDescription to startTime
 
     public LocalDate getDate() {
         return start.toLocalDate();

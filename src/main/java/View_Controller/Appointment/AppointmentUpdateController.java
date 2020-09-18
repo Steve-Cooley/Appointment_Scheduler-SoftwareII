@@ -101,8 +101,17 @@ public class AppointmentUpdateController implements Initializable {
     }
 
     public void addCustomerPressed(MouseEvent e) throws IOException {
-        customer = tvCustomers.getSelectionModel().getSelectedItem();
-        fieldCustName.setText(customer.getName());
+//        customer = tvCustomers.getSelectionModel().getSelectedItem();
+//        fieldCustName.setText(customer.getName());
+        SelectionModel<Customer> selection = tvCustomers.getSelectionModel();
+        if (!selection.isEmpty()) {
+            customer = selection.getSelectedItem();
+            fieldCustName.setText(customer.getName());
+        } else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please select a customer from the list.");
+            alert.showAndWait();
+        }
     }
 
     public void setBtnSave(MouseEvent click) throws IOException {
@@ -144,15 +153,10 @@ public class AppointmentUpdateController implements Initializable {
 
     private boolean inputIsValid() {
         System.out.println("inputIsValid is running");
-        if(customer == null
-                || TextAreaDescription.getText().isEmpty()
-                || datepicker.getValue() == null
-                || comboHour.getValue() == null
-                || comboMinute.getValue() == null
-        ) {
-            return false;
-        } else {
-            return true;
-        }
+        return customer != null
+                && !TextAreaDescription.getText().isEmpty()
+                && datepicker.getValue() != null
+                && comboHour.getValue() != null
+                && comboMinute.getValue() != null;
     }
 }

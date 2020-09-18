@@ -15,11 +15,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import utils.TimeMachine;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -95,11 +94,7 @@ public class LoginController implements Initializable {
     private boolean credentialCheck(String userName, String password) {
         if (userName.equals("test") && password.equals("test")) {
             return true;
-        } else if(userName.equals("Jane Doe") && password.equals("super secure password")) {
-            return true;
-        } else {
-            return false;
-        }
+        } else return userName.equals("Jane Doe") && password.equals("super secure password");
     }
 
     private void logUserActivity() throws IOException {
