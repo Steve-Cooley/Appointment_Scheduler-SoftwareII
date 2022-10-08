@@ -13,5 +13,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="mysql:mysql-connector-java:5.1.48" level="project" />
     <orderEntry type="library" name="jfxrt" level="project" />
+    <orderEntry type="library" name="jfxrt (2)" level="project" />
   </component>
 </module>
